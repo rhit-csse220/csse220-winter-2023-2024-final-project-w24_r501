@@ -18,7 +18,7 @@ public class BankAccount {
 	 * ensures: initializes the account name to "unknown user" and balance to 0
 	 */
 	public BankAccount() {
-		name = "unknown user"; // hehe funny jd'lajsda
+		name = "unknown user"; // hehe DJFFD
 		balance = 0.0;
 	} // BankAccount
 
