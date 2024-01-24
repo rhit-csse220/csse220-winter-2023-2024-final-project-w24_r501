@@ -8,7 +8,7 @@ package mainApp;
  * <br>Restrictions: None
  */
 public class MainApp {
-	
+	//test commit 
 	
 	private void runApp() {
 		System.out.println("Write your cool arcade game here!");		
