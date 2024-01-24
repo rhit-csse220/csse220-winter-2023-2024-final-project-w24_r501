@@ -2,3 +2,5 @@ bin/
 .DS_Store
 .gitignore
 *.class
+/.idea/
+W24_R501.iml
