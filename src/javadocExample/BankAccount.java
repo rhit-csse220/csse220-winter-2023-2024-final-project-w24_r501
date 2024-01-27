@@ -19,7 +19,7 @@ public class BankAccount {
 	 */
 	public BankAccount() {
 
-		name = "unknown user"; // hehe DJFFD
+		name = "unknown user"; //
 		balance = 0.0;
 	} // BankAccount
 
