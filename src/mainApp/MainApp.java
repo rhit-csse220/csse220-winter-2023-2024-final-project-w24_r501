@@ -1,5 +1,6 @@
 package mainApp;
 
+import javax.swing.JFrame;
 
 /**
  * Class: MainApp
@@ -15,7 +16,9 @@ public class MainApp {
 
 	
 	private void runApp() {
-		System.out.println("Write your cool arcade game here!");		
+		ChromosomeViewer viewer =  new ChromosomeViewer();
+		
+	
 	} // runApp
 
 	/**
