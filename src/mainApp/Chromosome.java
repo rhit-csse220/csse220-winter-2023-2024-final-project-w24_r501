@@ -18,13 +18,13 @@ public class Chromosome {
 	public Chromosome() {
 		this.size = DEFAULT_SIZE;
 
-		//Initialize the gene list with 0s
+		// Initialize the gene list with 0s
 		for (int a = 0; a < this.size; a++) {
 			this.geneList.add('0');
 		}
 
-		//Provide a default mutation rate.
-		this.mutationRate = 1.0/this.size;
+		// Provide a default mutation rate.
+		this.mutationRate = 1.0/ this.size;
 		
 	}
 	public void save(String filePath) {

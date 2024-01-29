@@ -40,8 +40,6 @@ public class ChromosomeComponent extends JPanel {
 //			setMaximumSize(new Dimension(30, 30));
 			addMouseListener(new MouseListener() {
 				@Override
-				public void mouseReleased(MouseEvent e) {}
-				@Override
 				public void mousePressed(MouseEvent e) {
 					if(getValue()) {
 						chromosome.setGene(index,'0' );
@@ -50,16 +48,15 @@ public class ChromosomeComponent extends JPanel {
 					}
 					repaint();
 				}
-
+				
+				@Override
+				public void mouseReleased(MouseEvent e) {}
 				@Override
 				public void mouseExited(MouseEvent e) {}
 				@Override
 				public void mouseEntered(MouseEvent e) {}
-				
 				@Override
-				public void mouseClicked(MouseEvent e) {
-
-				}
+				public void mouseClicked(MouseEvent e) {}
 			});
 		}
 		public void paintComponent(Graphics g) {
@@ -68,10 +65,10 @@ public class ChromosomeComponent extends JPanel {
 			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 					RenderingHints.VALUE_ANTIALIAS_ON);
 
-			//Set colors
+			// Set colors
 			Color fillColor;
 			Color textColor;
-			if(getValue()) {
+			if (getValue()) {
 				fillColor = Color.black;
 				textColor = Color.white;
 			} else {
@@ -79,7 +76,7 @@ public class ChromosomeComponent extends JPanel {
 				textColor = Color.black;
 			}
 
-			//Fill rectangle and text
+			// Fill rectangle and text
 			g2.setColor(fillColor);
 			g2.fillRect(0, 0, getWidth(), getHeight());
 			g2.setColor(Color.black);
@@ -90,7 +87,7 @@ public class ChromosomeComponent extends JPanel {
 			g2.setStroke(oldStroke);
 
 			g2.setColor(textColor);
-			g2.drawString(""+index, getWidth() / 2 - 5, getHeight() / 2 + 5);
+			g2.drawString("" + index, getWidth() / 2 - 5, getHeight() / 2 + 5);
 		}
 	}
 	
