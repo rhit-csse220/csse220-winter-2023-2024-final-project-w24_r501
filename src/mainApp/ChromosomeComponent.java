@@ -13,8 +13,6 @@ import javax.swing.*;
  */
 public class ChromosomeComponent extends JPanel {
 	private final ArrayList<ChromosomeCell> chromosomeCells = new ArrayList<>();
-
-
 	/**
 	 * Class: ChromosomeCell
 	 * Purpose: Represents a cell in the chromosome display grid. Will change color
@@ -90,7 +88,6 @@ public class ChromosomeComponent extends JPanel {
 			g2.drawString("" + index, getWidth() / 2 - 5, getHeight() / 2 + 5);
 		}
 	}
-	
 	public ChromosomeComponent(Chromosome chromosome) {
 		//TODO: Set default grid size
 
@@ -111,22 +108,6 @@ public class ChromosomeComponent extends JPanel {
 			//Store in the list
 			chromosomeCells.add(chromosomecell);
 		}
-
-		//Set the grid size based on the chromosome size; either 20 (4x5) or 100 (10x10)
-
-
-		
+		//Set the grid size based on the chromosome size; either 20 (4x5) or 100 (10x10)	
 	}
-//	public ArrayList<Character> getList(){
-//		ArrayList<Character> new_list = new ArrayList<>();
-//		for(ChromosomeCell chromosomecell : this.chromosomecells) {
-//			if( chromosomecell.getchoosen()) {
-//				new_list.add('1');
-//			}else {
-//				new_list.add('0');
-//			}
-//		}
-//		return new_list;
-//	}
-	
 }

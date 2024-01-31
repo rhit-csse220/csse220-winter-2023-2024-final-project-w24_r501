@@ -6,15 +6,23 @@ import java.util.ArrayList;
  * Class: Chromosome
  * Purpose: Stores a list of genes and other chromosome-specific information like mutation rate. Can be told to randomly
  * mutate, and can load/save from or to a file.
+ * @Param geneList : list of gene
+ * @Param size : the size of the gene
+ * @Param mutationRate : rate of mutation of the the gene
  */
 public class Chromosome {
+	/*
+	 * Instance variable
+	 */
 	private ArrayList<Character> geneList = new ArrayList<>();;
 	private int size;
 	private double mutationRate;
 	
 	private static final int DEFAULT_SIZE = 100;
 	
-	
+	/*
+	 * Constructor
+	 */
 	public Chromosome() {
 		this.size = DEFAULT_SIZE;
 
@@ -22,11 +30,13 @@ public class Chromosome {
 		for (int a = 0; a < this.size; a++) {
 			this.geneList.add('0');
 		}
-
 		// Provide a default mutation rate.
 		this.mutationRate = 1.0/ this.size;
 		
 	}
+	/*
+	 * Save and load method for the button
+	 */
 	public void save(String filePath) {
 		
 	}
@@ -42,20 +52,20 @@ public class Chromosome {
 	 * By default, the mutation rate is set to 1 / N where N is the size of the chromosome (e.g, 100).
 	 */
 	public void mutate() {
-		
 		for(int a = 0; a < geneList.size(); a++) {
-
 			//Run a check to see if this cell should mutate
 			if(Math.random() < this.mutationRate) {
 				if(this.geneList.get(a) == '0') {
 					this.geneList.set(a, '1');
 				}else {
 					this.geneList.set(a, '0');
-				}
-				
+				}	
 			}
 		}
 	}
+	/*
+	 * Getter and Setter method to get gene, set gene and get the geneList and the size. As well as setting mutationRate.
+	 */
 	public char getGene(int index) {
 		return this.geneList.get(index);
 	}
