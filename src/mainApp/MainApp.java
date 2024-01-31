@@ -16,6 +16,7 @@ public class MainApp {
 
 	
 	private void runApp() {
+		
 		ChromosomeViewer viewer =  new ChromosomeViewer();
 		viewer.runView();
 	

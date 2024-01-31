@@ -36,6 +36,9 @@ public class ChromosomeViewer {
 		JButton mutateButton = new JButton("Mutate");
 		JButton saveButton = new JButton("Save");
 		JButton loadButton = new JButton("Load");
+		JTextField box = new JTextField("1.0");
+		JLabel label = new JLabel ("M Rate:_/N");
+
 		/*
 		 * Setting color for the button and background
 		 */
@@ -52,7 +55,27 @@ public class ChromosomeViewer {
 		 * Function for three buttons
 		 */
 		mutateButton.addActionListener((e) -> {
+			try {
+			chromosome.upDateMutationRate(Double.parseDouble(box.getText()));
 			chromosome.mutate();
+			chromosomeComponent.repaint();
+			}catch(NumberFormatException a){
+				System.err.println("Mutate Input Invalid");
+			}
+		});
+		loadButton.addActionListener((e)->{
+			FileDialog dialog = new FileDialog(myFrame,"chooseFile");
+			dialog.setVisible(true);
+			String asPath  = dialog.getFile();
+			chromosome.load(asPath);
+			myFrame.setTitle(asPath);
+			chromosomeComponent.repaint();
+		});
+		saveButton.addActionListener((e)->{
+			FileDialog dialog = new FileDialog(myFrame,"chooseFile");
+			dialog.setVisible(true);
+			String asPath  = dialog.getFile();
+			chromosome.save(asPath);			
 			chromosomeComponent.repaint();
 		});
 		/*
@@ -61,10 +84,13 @@ public class ChromosomeViewer {
 		buttonPanel.add(loadButton);
 		buttonPanel.add(saveButton);
 		buttonPanel.add(mutateButton);
+		buttonPanel.add(label);
+
+		buttonPanel.add(box);
 		
 		myFrame.add(buttonPanel,BorderLayout.SOUTH);
 		myFrame.add(chromosomeComponent, BorderLayout.CENTER);
-
+		
 		myFrame.pack();
 		myFrame.setVisible(true);
 	}

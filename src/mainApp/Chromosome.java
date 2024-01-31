@@ -1,6 +1,11 @@
 package mainApp;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Class: Chromosome
@@ -38,11 +43,59 @@ public class Chromosome {
 	 * Save and load method for the button
 	 */
 	public void save(String filePath) {
+		String contains = "";
+		for ( int a = 0; a<geneList.size();a++) {
+			contains  += geneList.get(a) + "\n";
+		}
+		try {
+			File file = new File(filePath);
+			FileWriter filewriter;
+			filewriter = new FileWriter(file);
+			filewriter.write(contains,0,contains.length());
+			filewriter.close();
+			
+		} catch(NullPointerException e) {
+			System.err.println("No file selected");
+		
+		}catch (IOException e) {
+			System.err.println("Fail to write to file");
+		}
 		
 	}
 
 	public void load(String filePath) {
+		try {
+			File file = new File(filePath);
+			Scanner scanner = new Scanner(file);
+			String contains ="";
+			while(scanner.hasNext()) {
+				contains += scanner.nextLine();
+			}
+			if(!(contains.length()==100 || contains.length()==20)) {
+				throw new InvalidChromosomeFormatException();
+			}
+			for(int a =0;a<contains.length();a++) {
+				if(!(contains.charAt(a)=='1' || contains.charAt(a)=='0')) {
+					throw new InvalidChromosomeFormatException();
+				}
+				geneList.set(a, contains.charAt(a));
+			}
+			scanner.close();
+		}catch(NullPointerException e) {
+			System.err.println("No file selected");
 		
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.err.println("Fail to open File");
+			return;
+		}
+		catch(InvalidChromosomeFormatException e){
+			System.err.println("File format is invalid");
+		}	
+		catch(IOException e) {
+			System.err.println("File Io Exception");
+		}
+	
 	}
 
 	/**
@@ -78,7 +131,7 @@ public class Chromosome {
 
 	public int getSize(){return size;}
 
-	public void setMutationRate(double mutationRate){
-		this.mutationRate = mutationRate;
+	public void upDateMutationRate(double mutationRate){
+		this.mutationRate = mutationRate/this.size;
 	}
 }
