@@ -12,6 +12,9 @@ import javax.swing.*;
  * Purpose: Display a grid representing the genes of a chromosome, and allow the user to edit the genes by clicking.
  */
 public class ChromosomeComponent extends JPanel {
+	/*
+	 * @Param chromosomeCells : ArrayList of ChromosomeCell
+	 */
 	private final ArrayList<ChromosomeCell> chromosomeCells = new ArrayList<>();
 	/**
 	 * Class: ChromosomeCell
@@ -19,6 +22,11 @@ public class ChromosomeComponent extends JPanel {
 	 * and update the underlying chromosome if clicked.
 	 */
 	private class ChromosomeCell extends JComponent {
+		/*
+		 * Listing instance variable
+		 * @Param int index : index of the gene
+		 * @Param Chromosome chromsome : Assign the calculating the chromosome
+		 */
 		private final int index;
 		private final Chromosome chromosome;
 
@@ -29,13 +37,17 @@ public class ChromosomeComponent extends JPanel {
 		public boolean getValue() {
 			return (chromosome.getGene(index) == '1');
 		}
-
+		/*
+		 * Constructor of other class called ChromosomeCell taking two arguments chromosome and index
+		 */
 		public ChromosomeCell(Chromosome chromosome, int index) {
 			this.chromosome = chromosome;
 			this.index = index;
 			
 			setPreferredSize(new Dimension(20, 20));
-//			setMaximumSize(new Dimension(30, 30));
+			/*
+			 * Mouse listener to change genes if the genes are being clicked
+			 */
 			addMouseListener(new MouseListener() {
 				@Override
 				public void mousePressed(MouseEvent e) {
@@ -46,7 +58,6 @@ public class ChromosomeComponent extends JPanel {
 					}
 					repaint();
 				}
-				
 				@Override
 				public void mouseReleased(MouseEvent e) {}
 				@Override
@@ -57,6 +68,9 @@ public class ChromosomeComponent extends JPanel {
 				public void mouseClicked(MouseEvent e) {}
 			});
 		}
+		/*
+		 * Drawing method
+		 */
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D) g;
@@ -88,9 +102,11 @@ public class ChromosomeComponent extends JPanel {
 			g2.drawString("" + index, getWidth() / 2 - 5, getHeight() / 2 + 5);
 		}
 	}
+	/*
+	 * Constructor of ChromosomeComponent
+	 */
 	public ChromosomeComponent(Chromosome chromosome) {
 		//TODO: Set default grid size
-
 		if(chromosome.getSize() == 100) {
 //			setMinimumSize(new Dimension(100, 100));
 			this.setLayout(new GridLayout(10, 10, 1, 1));
@@ -98,7 +114,6 @@ public class ChromosomeComponent extends JPanel {
 //			setMinimumSize(new Dimension(50, 40));
 			this.setLayout(new GridLayout(5,4, 1, 1));
 		}
-
 		//Create cells for each gene
 		for(int a = 0; a < chromosome.getSize(); a++) {
 			//Create the cell
