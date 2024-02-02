@@ -1,7 +1,8 @@
 package mainApp;
 
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -69,9 +70,10 @@ public class ChromosomeViewer {
 			String asPath  = dialog.getFile();
 			chromosome.load(asPath);
 			myFrame.setTitle(asPath);
-			chromosomeComponent.load(chromosome);
+			// chromosomeComponent.load(chromosome);
 			chromosomeComponent.repaint();
 		});
+
 		saveButton.addActionListener((e)->{
 			FileDialog dialog = new FileDialog(myFrame,"chooseFile");
 			dialog.setVisible(true);
