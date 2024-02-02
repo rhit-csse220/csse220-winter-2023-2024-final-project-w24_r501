@@ -65,10 +65,12 @@ public class Chromosome {
 	}
 
 	public void load(String filePath) {
+		ArrayList backup = new ArrayList<>(geneList);
 		try {
 			File file = new File(filePath);
 			Scanner scanner = new Scanner(file);
 			String contains ="";
+			geneList.clear();
 			while(scanner.hasNext()) {
 				contains += scanner.nextLine();
 			}
@@ -79,23 +81,27 @@ public class Chromosome {
 				if(!(contains.charAt(a)=='1' || contains.charAt(a)=='0')) {
 					throw new InvalidChromosomeFormatException();
 				}
-				geneList.set(a, contains.charAt(a));
+				geneList.add(contains.charAt(a));
 			}
 			scanner.close();
 			
 		}catch(NullPointerException e) {
 			System.err.println("No file selected");
+			geneList = backup;
 		
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			System.err.println("Fail to open File");
+			geneList = backup;
 			return;
 		}
 		catch(InvalidChromosomeFormatException e){
 			System.err.println("File format is invalid");
+			geneList = backup;
 		}	
 		catch(IOException e) {
 			System.err.println("File Io Exception");
+			geneList = backup;
 		}
 	
 	}

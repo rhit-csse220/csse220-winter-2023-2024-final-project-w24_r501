@@ -70,8 +70,10 @@ public class ChromosomeViewer {
 			String asPath  = dialog.getFile();
 			chromosome.load(asPath);
 			myFrame.setTitle(asPath);
-			// chromosomeComponent.load(chromosome);
-			chromosomeComponent.repaint();
+			chromosomeComponent.load(chromosome);
+			myFrame.setVisible(true);
+			myFrame.repaint();
+	
 		});
 
 		saveButton.addActionListener((e)->{
