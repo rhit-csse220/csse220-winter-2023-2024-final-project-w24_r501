@@ -32,7 +32,8 @@ public class ChromosomeViewer {
 		JPanel buttonPanel = new JPanel();
 		Chromosome chromosome = new Chromosome();
 
-		ChromosomeComponent chromosomeComponent = new ChromosomeComponent(chromosome);
+		ChromosomeComponent chromosomeComponent = new ChromosomeComponent();
+		chromosomeComponent.load(chromosome);
 
 		JButton mutateButton = new JButton("Mutate");
 		JButton saveButton = new JButton("Save");
@@ -57,7 +58,7 @@ public class ChromosomeViewer {
 		 */
 		mutateButton.addActionListener((e) -> {
 			try {
-			chromosome.upDateMutationRate(Double.parseDouble(box.getText()));
+			chromosome.updateMutationRate(Double.parseDouble(box.getText()));
 			chromosome.mutate();
 			chromosomeComponent.repaint();
 			}catch(NumberFormatException a){

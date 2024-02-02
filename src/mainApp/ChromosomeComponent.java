@@ -15,7 +15,7 @@ public class ChromosomeComponent extends JPanel {
 	/*
 	 * @Param chromosomeCells : ArrayList of ChromosomeCell
 	 */
-	private final ArrayList<ChromosomeCell> chromosomeCells = new ArrayList<>();
+	private ArrayList<ChromosomeCell> chromosomeCells = new ArrayList<>();
 	/**
 	 * Class: ChromosomeCell
 	 * Purpose: Represents a cell in the chromosome display grid. Will change color
@@ -102,35 +102,11 @@ public class ChromosomeComponent extends JPanel {
 			g2.drawString("" + index, getWidth() / 2 - 5, getHeight() / 2 + 5);
 		}
 	}
-	/*
-	 * Constructor of ChromosomeComponent
-	 */
-	public ChromosomeComponent(Chromosome chromosome) {
-		//TODO: Set default grid size
-// 		if(chromosome.getSize() == 100) {
-// //			setMinimumSize(new Dimension(100, 100));
-// 			this.setLayout(new GridLayout(10, 10, 1, 1));
-// 		}else {
-// //			setMinimumSize(new Dimension(50, 40));
-// 			this.setLayout(new GridLayout(2, 10, 1, 1));
-// 		}
-// 		//Create cells for each gene
-// 		for(int a = 0; a < chromosome.getSize(); a++) {
-// 			//Create the cell
-// 			ChromosomeCell chromosomecell = new ChromosomeCell(chromosome, a);
-// 			//Add the cell component
-// 			add(chromosomecell);
-// 			//Store in the list
-// 			chromosomeCells.add(chromosomecell);
-// 		}
-		load(chromosome);
-		//Set the grid size based on the chromosome size; either 20 (4x5) or 100 (10x10)	
-	}
 
 	public void load(Chromosome chromosome) {
 
 		removeAll();
-		chromosomeCells.clear();
+		chromosomeCells = new ArrayList<>();
 		
 		
 		if (chromosome.getSize() == 100) {
@@ -145,6 +121,8 @@ public class ChromosomeComponent extends JPanel {
 			add(chromosomeCell);
 			chromosomeCells.add(chromosomeCell);
 		}
+
+		repaint();
 	}
 
 }
