@@ -107,22 +107,43 @@ public class ChromosomeComponent extends JPanel {
 	 */
 	public ChromosomeComponent(Chromosome chromosome) {
 		//TODO: Set default grid size
-		if(chromosome.getSize() == 100) {
-//			setMinimumSize(new Dimension(100, 100));
-			this.setLayout(new GridLayout(10, 10, 1, 1));
-		}else {
-//			setMinimumSize(new Dimension(50, 40));
-			this.setLayout(new GridLayout(2, 10, 1, 1));
-		}
-		//Create cells for each gene
-		for(int a = 0; a < chromosome.getSize(); a++) {
-			//Create the cell
-			ChromosomeCell chromosomecell = new ChromosomeCell(chromosome, a);
-			//Add the cell component
-			add(chromosomecell);
-			//Store in the list
-			chromosomeCells.add(chromosomecell);
-		}
+// 		if(chromosome.getSize() == 100) {
+// //			setMinimumSize(new Dimension(100, 100));
+// 			this.setLayout(new GridLayout(10, 10, 1, 1));
+// 		}else {
+// //			setMinimumSize(new Dimension(50, 40));
+// 			this.setLayout(new GridLayout(2, 10, 1, 1));
+// 		}
+// 		//Create cells for each gene
+// 		for(int a = 0; a < chromosome.getSize(); a++) {
+// 			//Create the cell
+// 			ChromosomeCell chromosomecell = new ChromosomeCell(chromosome, a);
+// 			//Add the cell component
+// 			add(chromosomecell);
+// 			//Store in the list
+// 			chromosomeCells.add(chromosomecell);
+// 		}
+		load(chromosome);
 		//Set the grid size based on the chromosome size; either 20 (4x5) or 100 (10x10)	
 	}
+
+	public void load(Chromosome chromosome) {
+		if (chromosome.getSize() == 100) {
+			this.setLayout(new GridLayout(10, 10, 1, 1));
+		} else {
+			this.setLayout(new GridLayout(2, 10, 1, 1));
+		}
+
+		removeAll();
+		chromosomeCells.clear();
+		
+		for (int a = 0; a < chromosome.getSize(); a++) {
+			ChromosomeCell chromosomeCell = new ChromosomeCell(chromosome, a);
+			add(chromosomeCell);
+			chromosomeCells.add(chromosomeCell);
+		}
+
+		
+	}
+
 }

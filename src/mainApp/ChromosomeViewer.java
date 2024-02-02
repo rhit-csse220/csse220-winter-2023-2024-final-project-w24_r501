@@ -69,6 +69,7 @@ public class ChromosomeViewer {
 			String asPath  = dialog.getFile();
 			chromosome.load(asPath);
 			myFrame.setTitle(asPath);
+			chromosomeComponent.load(chromosome);
 			chromosomeComponent.repaint();
 		});
 		saveButton.addActionListener((e)->{

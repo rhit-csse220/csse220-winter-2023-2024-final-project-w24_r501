@@ -82,6 +82,7 @@ public class Chromosome {
 				geneList.set(a, contains.charAt(a));
 			}
 			scanner.close();
+			
 		}catch(NullPointerException e) {
 			System.err.println("No file selected");
 		
