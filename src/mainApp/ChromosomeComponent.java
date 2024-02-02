@@ -134,7 +134,9 @@ public class ChromosomeComponent extends JPanel {
 			this.setLayout(new GridLayout(2, 10, 1, 1));
 		}
 
-		removeAll();
+		for (ChromosomeCell c : chromosomeCells) {
+			remove(c);
+		}
 		chromosomeCells.clear();
 		
 		for (int a = 0; a < chromosome.getSize(); a++) {
