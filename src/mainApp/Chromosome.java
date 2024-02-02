@@ -49,6 +49,7 @@ public class Chromosome {
 		}
 		try {
 			File file = new File(filePath);
+			file.createNewFile();
 			FileWriter filewriter;
 			filewriter = new FileWriter(file);
 			filewriter.write(contains,0,contains.length());

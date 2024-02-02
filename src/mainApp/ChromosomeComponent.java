@@ -112,7 +112,7 @@ public class ChromosomeComponent extends JPanel {
 			this.setLayout(new GridLayout(10, 10, 1, 1));
 		}else {
 //			setMinimumSize(new Dimension(50, 40));
-			this.setLayout(new GridLayout(4,5, 1, 1));
+			this.setLayout(new GridLayout(2, 10, 1, 1));
 		}
 		//Create cells for each gene
 		for(int a = 0; a < chromosome.getSize(); a++) {
