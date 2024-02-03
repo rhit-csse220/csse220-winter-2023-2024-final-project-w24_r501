@@ -18,6 +18,7 @@ public class MainApp {
 	private void runApp() {
 		
 		ChromosomeViewer viewer =  new ChromosomeViewer();
+		EvolutionSimulator simulation = new EvolutionSimulator();
 		viewer.runView();
 	
 	} // runApp

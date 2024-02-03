@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -39,6 +40,15 @@ public class Chromosome {
         this.mutationRate = 1.0 / DEFAULT_SIZE;
 
     }
+
+    public Chromosome(Chromosome chromosome) {
+        this();
+        this.geneList.clear();
+        for (int i = 0; i < chromosome.getSize(); i++) {
+            this.geneList.add(chromosome.getGene(i));
+        }
+    }
+
 
     /*
      * Save and load method for the button
@@ -144,4 +154,15 @@ public class Chromosome {
     public void updateMutationRate(double mutationRate) {
         this.mutationRate = mutationRate / geneList.size();
     }
+
+	public void randomize(int seed) {
+		Random rand = new Random(seed);
+		for (int i = 0; i < geneList.size(); i++) {
+			if (rand.nextDouble() < 0.5) {
+				geneList.set(i, '0');
+			} else {
+				geneList.set(i, '1');
+			}
+		}
+	}
 }
