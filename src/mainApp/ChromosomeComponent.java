@@ -116,7 +116,6 @@ public class ChromosomeComponent extends JPanel {
 		}
 		
 		for (int a = 0; a < chromosome.getSize(); a++) {
-			System.out.println("added new cell" + a);
 			ChromosomeCell chromosomeCell = new ChromosomeCell(chromosome, a);
 			add(chromosomeCell);
 			chromosomeCells.add(chromosomeCell);
