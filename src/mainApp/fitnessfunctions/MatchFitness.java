@@ -5,7 +5,7 @@ import mainApp.FitnessFunction;
 
 public class MatchFitness implements FitnessFunction {
     private Chromosome target;
-    
+
     public MatchFitness(Chromosome chromosome) {
         target = chromosome;
     }

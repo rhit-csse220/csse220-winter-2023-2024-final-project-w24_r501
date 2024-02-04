@@ -19,7 +19,7 @@ public class MaxConsecutiveFitness implements FitnessFunction {
                 cur_conc += 1;
             } else {
                 cur_conc = 0;
-            }          
+            }
 
             if (max_conc < cur_conc) {
                 max_conc = cur_conc;

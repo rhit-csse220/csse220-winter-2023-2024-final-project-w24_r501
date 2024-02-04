@@ -22,6 +22,6 @@ public class RankSelection implements SelectionMethod {
                     - (2 * SELECTION_PRESSURE * ((chromosomes.size() - i - 1) / (chromosomes.size() - 1)))));
         }
 
-        return WeightedRandomSelection.getSelection(sorted, weights, chromosomes.size()/2);
+        return WeightedRandomSelection.getSelection(sorted, weights, chromosomes.size() / 2);
     }
 }

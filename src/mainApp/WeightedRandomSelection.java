@@ -3,7 +3,8 @@ package mainApp;
 import java.util.ArrayList;
 
 public class WeightedRandomSelection {
-    public static ArrayList<Chromosome> getSelection(ArrayList<Chromosome> chromosomes, ArrayList<Double> weights, int selection_amount) {
+    public static ArrayList<Chromosome> getSelection(ArrayList<Chromosome> chromosomes, ArrayList<Double> weights,
+            int selection_amount) {
         ArrayList<Chromosome> selected = new ArrayList<>();
         double total_weight = 0;
         for (Double d : weights) {

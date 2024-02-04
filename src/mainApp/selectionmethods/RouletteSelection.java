@@ -18,7 +18,7 @@ public class RouletteSelection implements SelectionMethod {
             weights.add(chromosomes.get(k));
         }
 
-        return WeightedRandomSelection.getSelection(clist, weights, chromosomes.size()/2);
+        return WeightedRandomSelection.getSelection(clist, weights, chromosomes.size() / 2);
     }
 
 }

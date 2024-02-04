@@ -10,7 +10,8 @@ import java.util.Scanner;
 
 /**
  * Class: Chromosome
- * Purpose: Stores a list of genes and other chromosome-specific information like mutation rate. Can be told to randomly
+ * Purpose: Stores a list of genes and other chromosome-specific information
+ * like mutation rate. Can be told to randomly
  * mutate, and can load/save from or to a file.
  *
  * @Param geneList : list of gene
@@ -21,9 +22,8 @@ public class Chromosome {
     /*
      * Instance variable
      */
-    private ArrayList<Character> geneList = new ArrayList<>();
-    ;
-    private double mutationRate;
+    private ArrayList<Character> geneList = new ArrayList<>();;
+    public double mutationRate;
     private double fitnessValue;
 
     private static final int DEFAULT_SIZE = 100;
@@ -50,6 +50,18 @@ public class Chromosome {
         }
     }
 
+    public Chromosome(Chromosome c1, Chromosome c2) {
+        for (int i = 0; i < c1.getSize() / 2; i++) {
+            this.geneList.add(c1.getGene(i));
+        }
+
+        for (int i = c1.getSize() / 2; i < c1.getSize(); i++) {
+            this.geneList.add(c2.getGene(i));
+        }
+
+        this.mutationRate = c1.mutationRate;
+
+    }
 
     /*
      * Save and load method for the button
@@ -117,11 +129,12 @@ public class Chromosome {
      * Runs a mutation chance for each gene with this chromosome's mutation rate.
      * If the check passes, then the bit in that gene is flipped.
      * <p>
-     * By default, the mutation rate is set to 1 / N where N is the size of the chromosome (e.g, 100).
+     * By default, the mutation rate is set to 1 / N where N is the size of the
+     * chromosome (e.g, 100).
      */
     public void mutate() {
         for (int a = 0; a < geneList.size(); a++) {
-            //Run a check to see if this cell should mutate
+            // Run a check to see if this cell should mutate
             if (Math.random() < this.mutationRate) {
                 if (this.geneList.get(a) == '0') {
                     this.geneList.set(a, '1');
@@ -133,10 +146,12 @@ public class Chromosome {
     }
 
     /*
-     * Getter and Setter method to get gene, set gene and get the geneList and the size. As well as setting mutationRate.
+     * Getter and Setter method to get gene, set gene and get the geneList and the
+     * size. As well as setting mutationRate.
      */
     public char getGene(int index) {
-        if (index >= geneList.size()) return 0;
+        if (index >= geneList.size())
+            return 0;
         return this.geneList.get(index);
     }
 
@@ -160,16 +175,20 @@ public class Chromosome {
         this.mutationRate = mutationRate / geneList.size();
     }
 
-	public void randomize(int seed) {
-		Random rand = new Random(seed);
-		for (int i = 0; i < geneList.size(); i++) {
-			if (rand.nextDouble() < 0.5) {
-				geneList.set(i, '0');
-			} else {
-				geneList.set(i, '1');
-			}
-		}
-	}
+    public void randomize(Random rand, int bitsize) {
+        if (!(bitsize == 100 || bitsize == 20)) {
+            throw new UnsupportedOperationException("Genome size can only be 20 or 100");
+        }
+
+        this.geneList = new ArrayList<>();
+        for (int i = 0; i < bitsize; i++) {
+            if (rand.nextDouble() < 0.5) {
+                geneList.add(i, '0');
+            } else {
+                geneList.add(i, '1');
+            }
+        }
+    }
 
     public double getFitnessValue() {
         return fitnessValue;

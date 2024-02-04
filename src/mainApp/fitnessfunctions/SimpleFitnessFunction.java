@@ -16,5 +16,5 @@ public class SimpleFitnessFunction implements FitnessFunction {
 
         return amount;
     }
-    
+
 }
