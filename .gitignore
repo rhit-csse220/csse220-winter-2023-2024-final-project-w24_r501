@@ -4,3 +4,4 @@ bin/
 *.class
 /.idea/
 W24_R501.iml
+.vscode

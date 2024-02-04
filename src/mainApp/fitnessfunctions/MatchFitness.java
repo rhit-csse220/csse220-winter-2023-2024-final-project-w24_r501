@@ -1,4 +1,4 @@
-package mainApp.selectionmethods;
+package mainApp.fitnessfunctions;
 
 import mainApp.Chromosome;
 import mainApp.FitnessFunction;

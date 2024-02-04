@@ -9,11 +9,6 @@ import javax.swing.JFrame;
  * <br>Restrictions: None
  */
 public class MainApp {
-	//test commit 
-	//test
-	//comment
-	//test!!!
-
 	
 	private void runApp() {
 		

@@ -24,6 +24,7 @@ public class Chromosome {
     private ArrayList<Character> geneList = new ArrayList<>();
     ;
     private double mutationRate;
+    private double fitnessValue;
 
     private static final int DEFAULT_SIZE = 100;
 
@@ -147,6 +148,10 @@ public class Chromosome {
         return new ArrayList<>(this.geneList);
     }
 
+    public void setGeneList(ArrayList<Character> genes) {
+        this.geneList = genes;
+    }
+
     public int getSize() {
         return geneList.size();
     }
@@ -165,4 +170,8 @@ public class Chromosome {
 			}
 		}
 	}
+
+    public double getFitnessValue() {
+        return fitnessValue;
+    }
 }

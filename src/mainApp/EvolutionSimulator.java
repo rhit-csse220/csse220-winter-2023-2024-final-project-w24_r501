@@ -1,9 +1,12 @@
 package mainApp;
 
+import java.util.ArrayList;
+
 public class EvolutionSimulator {
 
     private SelectionMethod selectionMethod;
     private FitnessFunction fitnessFunction;
+    private ArrayList<Chromosome> chromosomes;
 
     public EvolutionSimulator() {
         //todo
