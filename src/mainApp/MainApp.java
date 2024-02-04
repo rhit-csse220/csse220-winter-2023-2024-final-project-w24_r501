@@ -2,6 +2,12 @@ package mainApp;
 
 import javax.swing.JFrame;
 
+import mainApp.fitnessfunctions.MaxConsecutiveFitness;
+import mainApp.fitnessfunctions.SimpleFitnessFunction;
+import mainApp.selectionmethods.RankSelection;
+import mainApp.selectionmethods.RouletteSelection;
+import mainApp.selectionmethods.TruncationSelection;
+
 /**
  * Class: MainApp
  * 
@@ -15,9 +21,18 @@ public class MainApp {
 
 	private void runApp() {
 
-		ChromosomeViewer viewer = new ChromosomeViewer();
+		// ChromosomeViewer viewer = new ChromosomeViewer();
 		EvolutionViewer simulation = new EvolutionViewer();
-		viewer.runView();
+
+		EvolutionSimulator sim = new EvolutionSimulator();
+		sim.startSimulation(100, 100, 1, 1/100);
+		sim.setFitnessFunction(new SimpleFitnessFunction());
+		sim.setSelectionMethod(new RouletteSelection());
+
+		for (int i = 0; i < 100; i++) {
+			sim.runGeneration();
+			System.out.println("Min: " + sim.last_min + ", Average: " + sim.last_average + ", Max: " + sim.last_max);
+		}
 
 	} // runApp
 
