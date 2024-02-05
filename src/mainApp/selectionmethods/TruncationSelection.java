@@ -3,9 +3,7 @@ package mainApp.selectionmethods;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import mainApp.Chromosome;
-import mainApp.SelectionMethod;
-import mainApp.SortChromosomeMap;
+import mainApp.chromosome.Chromosome;
 
 public class TruncationSelection implements SelectionMethod {
 

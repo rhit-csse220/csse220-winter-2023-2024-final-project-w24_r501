@@ -1,7 +1,6 @@
 package mainApp.fitnessfunctions;
 
-import mainApp.Chromosome;
-import mainApp.FitnessFunction;
+import mainApp.chromosome.Chromosome;
 
 public class SimpleFitnessFunction implements FitnessFunction {
 

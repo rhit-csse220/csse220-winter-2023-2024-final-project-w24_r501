@@ -1,8 +1,9 @@
-package mainApp;
+package mainApp.selectionmethods;
 
-import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+
+import mainApp.chromosome.Chromosome;
 
 public class WeightedRandomSelection {
     public static ArrayList<Chromosome> getSelection(ArrayList<Chromosome> chromosomes, ArrayList<Double> weights,

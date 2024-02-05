@@ -1,4 +1,4 @@
-package mainApp;
+package mainApp.evolution;
 
 import java.awt.Graphics;
 

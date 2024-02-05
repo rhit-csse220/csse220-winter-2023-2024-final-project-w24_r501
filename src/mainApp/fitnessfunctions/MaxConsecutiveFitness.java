@@ -2,8 +2,7 @@ package mainApp.fitnessfunctions;
 
 import java.util.ArrayList;
 
-import mainApp.Chromosome;
-import mainApp.FitnessFunction;
+import mainApp.chromosome.Chromosome;
 
 public class MaxConsecutiveFitness implements FitnessFunction {
 

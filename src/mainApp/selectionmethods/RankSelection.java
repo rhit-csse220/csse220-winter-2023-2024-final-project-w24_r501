@@ -3,10 +3,7 @@ package mainApp.selectionmethods;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import mainApp.Chromosome;
-import mainApp.SelectionMethod;
-import mainApp.SortChromosomeMap;
-import mainApp.WeightedRandomSelection;
+import mainApp.chromosome.Chromosome;
 
 public class RankSelection implements SelectionMethod {
     private static final double SELECTION_PRESSURE = 1.5;

@@ -1,10 +1,14 @@
-package mainApp;
+package mainApp.evolution;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+
+import mainApp.chromosome.Chromosome;
+import mainApp.fitnessfunctions.FitnessFunction;
+import mainApp.selectionmethods.SelectionMethod;
 
 
 public class EvolutionSimulator {
@@ -36,7 +40,7 @@ public class EvolutionSimulator {
     public void runGeneration() {
 
         for (Chromosome chr : chromosomes) {
-            chr.mutate();;
+            chr.mutate();
         }
 
         HashMap<Chromosome, Double> values = new HashMap<>();
@@ -71,7 +75,6 @@ public class EvolutionSimulator {
             new_chr.add(new Chromosome(survivors.get(survivors.size()-i-1), survivors.get(i)));
        }
 
-       assertEquals(survivors.size(), 50);
        this.chromosomes = new_chr;
 
     }   

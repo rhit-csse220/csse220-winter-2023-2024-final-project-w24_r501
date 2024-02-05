@@ -1,4 +1,4 @@
-package mainApp;
+package mainApp.chromosome;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

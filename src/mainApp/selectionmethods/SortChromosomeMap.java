@@ -1,11 +1,12 @@
-package mainApp;
+package mainApp.selectionmethods;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import mainApp.chromosome.Chromosome;
+
 public class SortChromosomeMap {
-    // TODO test
     public static ArrayList<Chromosome> sort(HashMap<Chromosome, Double> chromosomes) {
         ArrayList<ChromosomeDatastructure> datastructures = new ArrayList<>();
         for (Chromosome k : chromosomes.keySet()) {
@@ -47,7 +48,8 @@ public class SortChromosomeMap {
         }
         int half = chromosomes.size() / 2;
         List<ChromosomeDatastructure> sorted1 = new ArrayList<>(mergeSort(chromosomes.subList(0, half)));
-        List<ChromosomeDatastructure> sorted2 = new ArrayList<>(mergeSort(chromosomes.subList(half, chromosomes.size())));
+        List<ChromosomeDatastructure> sorted2 = new ArrayList<>(
+                mergeSort(chromosomes.subList(half, chromosomes.size())));
         List<ChromosomeDatastructure> new_list = new ArrayList<>();
 
         while (sorted1.size() != 0 && sorted2.size() != 0) {
