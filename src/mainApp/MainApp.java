@@ -27,8 +27,6 @@ public class MainApp {
 		EvolutionViewer eviewer = new EvolutionViewer();
 		eviewer.runViewer();
 
-		
-
 		// EvolutionViewer simulation = new EvolutionViewer();
 
 		// EvolutionSimulator sim = new EvolutionSimulator();

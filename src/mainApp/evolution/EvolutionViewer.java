@@ -31,6 +31,7 @@ public class EvolutionViewer {
 
         JPanel buttons = new JPanel();
         GraphComponent graph = new GraphComponent(sim);
+        graph.frame = frame;
 
         
 
@@ -78,8 +79,10 @@ public class EvolutionViewer {
             sim.startSimulation(population, genomes, (int)(100 * Math.random()), mutate_rate);
 
             for (int i = 0; i < generations; i++) {
-                sim.runGeneration();
-                graph.repaint();
+                if (generations % 5 == 0) {
+                    sim.runGeneration();
+                    frame.update(frame.getGraphics());
+                }
             }
             
         });

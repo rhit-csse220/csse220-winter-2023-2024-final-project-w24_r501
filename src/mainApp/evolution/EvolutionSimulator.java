@@ -74,8 +74,6 @@ public class EvolutionSimulator {
         this.max.add(max);
         this.min.add(min); 
 
-        graphcomp.repaint();
-
        ArrayList<Chromosome> survivors = selectionMethod.select(values);
 
        ArrayList<Chromosome> new_chr = new ArrayList<>();
@@ -85,9 +83,7 @@ public class EvolutionSimulator {
        }
 
        this.chromosomes = new_chr;
-
     }   
-
 
     public ArrayList<Chromosome> getPopulationChromosomes () {
         return new ArrayList<>(this.chromosomes);
