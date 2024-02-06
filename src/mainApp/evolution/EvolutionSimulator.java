@@ -17,16 +17,23 @@ public class EvolutionSimulator {
     private FitnessFunction fitnessFunction;
     private ArrayList<Chromosome> chromosomes;
 
-    public double last_max;
-    public double last_min;
-    public double last_average;
+    public ArrayList<Double> max;
+    public ArrayList<Double> min;
+    public ArrayList<Double> average;
 
-    public EvolutionSimulator() {
-        //TODO
+    public GraphComponent graphcomp;
+
+    public void setGraph(GraphComponent graphcomp) {
+        this.graphcomp = graphcomp;
     }
+
 
     public void startSimulation(int pop_size, int bitlength, int seed, double mutation_rate) {
         this.chromosomes = new ArrayList<>();
+        this.max = new ArrayList<>();
+        this.min = new ArrayList<>();
+        this.average = new ArrayList<>(); 
+
         Random rand = new Random(seed);
         for (int i = 0; i < pop_size; i++) {
             Chromosome chr = new Chromosome();
@@ -63,9 +70,11 @@ public class EvolutionSimulator {
             av += w;
         }
         av /= chromosomes.size();
-        this.last_average = av;
-        this.last_max = max;
-        this.last_min = min;
+        this.average.add(av);
+        this.max.add(max);
+        this.min.add(min); 
+
+        graphcomp.repaint();
 
        ArrayList<Chromosome> survivors = selectionMethod.select(values);
 
