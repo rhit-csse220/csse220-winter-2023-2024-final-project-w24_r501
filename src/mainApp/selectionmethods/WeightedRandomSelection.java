@@ -5,6 +5,10 @@ import java.util.ArrayList;
 
 import mainApp.chromosome.Chromosome;
 
+/**
+ * Class: WeightedRandomSelection
+ * Purpose: Choosing a random weighted selection for selection methods
+ */
 public class WeightedRandomSelection {
     public static ArrayList<Chromosome> getSelection(ArrayList<Chromosome> chromosomes, ArrayList<Double> weights,
             int selection_amount) {

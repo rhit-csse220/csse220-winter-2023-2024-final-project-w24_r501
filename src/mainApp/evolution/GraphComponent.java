@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+/**
+ * Class: GraphComponent
+ * Purpose: Displaying progress of an EvolutionSimulator
+ */
 public class GraphComponent extends JComponent {
     private EvolutionSimulator sim;
     public JFrame frame;

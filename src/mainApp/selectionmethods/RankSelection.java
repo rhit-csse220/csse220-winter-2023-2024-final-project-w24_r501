@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 import mainApp.chromosome.Chromosome;
 
+/**
+ * Class: RankSelection
+ * Purpose: Implementing the rank selection algorithm
+ */
 public class RankSelection implements SelectionMethod {
     private static final double SELECTION_PRESSURE = 1.5;
 

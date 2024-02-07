@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 import mainApp.chromosome.Chromosome;
 
+/**
+ * Class: RouletteSelection
+ * Purpose: Implementing roulette selection algorithm 
+ */
 public class RouletteSelection implements SelectionMethod {
     @Override
     public ArrayList<Chromosome> select(HashMap<Chromosome, Double> chromosomes) {

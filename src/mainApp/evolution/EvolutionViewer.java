@@ -20,6 +20,10 @@ import mainApp.selectionmethods.RankSelection;
 import mainApp.selectionmethods.RouletteSelection;
 import mainApp.selectionmethods.TruncationSelection;
 
+/**
+ * Class: EvolutionViewer
+ * Purpose: Handling the frame for displaying evolution progress
+ */
 public class EvolutionViewer {
     public EvolutionSimulator sim = new EvolutionSimulator();
 
@@ -34,8 +38,6 @@ public class EvolutionViewer {
         JPanel buttons = new JPanel();
         GraphComponent graph = new GraphComponent(sim);
         graph.frame = frame;
-
-        
 
         JLabel mutateLabel = new JLabel("M Rate:_/N");
         JTextField mutateBox = new JTextField("1.0");

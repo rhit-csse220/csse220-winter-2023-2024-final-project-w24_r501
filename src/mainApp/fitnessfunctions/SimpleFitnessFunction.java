@@ -2,6 +2,10 @@ package mainApp.fitnessfunctions;
 
 import mainApp.chromosome.Chromosome;
 
+/**
+ * Class: SimpleFitnessFunction
+ * Purpose: Implementing fitness function based on amount of 1 genes
+ */
 public class SimpleFitnessFunction implements FitnessFunction {
 
     @Override

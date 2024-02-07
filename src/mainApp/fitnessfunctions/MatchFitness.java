@@ -2,6 +2,10 @@ package mainApp.fitnessfunctions;
 
 import mainApp.chromosome.Chromosome;
 
+/**
+ * Class: MatchFitness
+ * Purpose: Fitness function for determining how close one chomosome is to another
+ */
 public class MatchFitness implements FitnessFunction {
     private Chromosome target;
 

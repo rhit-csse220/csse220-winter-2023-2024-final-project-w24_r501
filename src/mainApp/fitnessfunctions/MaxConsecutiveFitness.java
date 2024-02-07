@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import mainApp.chromosome.Chromosome;
 
+/**
+ * Class: MaxConsecutiveFitness
+ * Purpose: Fitness function for determining longest sequence of 1s in a 
+ * chromosome
+ */
 public class MaxConsecutiveFitness implements FitnessFunction {
 
     @Override

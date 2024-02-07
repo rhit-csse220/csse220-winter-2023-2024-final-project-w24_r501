@@ -6,6 +6,9 @@ import java.util.List;
 
 import mainApp.chromosome.Chromosome;
 
+/** Class: SortChromosomeMap
+ * Purpose: Implementing sort algorithm that keeps secondary list in sync 
+ */
 public class SortChromosomeMap {
     public static ArrayList<Chromosome> sort(HashMap<Chromosome, Double> chromosomes) {
         ArrayList<ChromosomeDatastructure> datastructures = new ArrayList<>();

@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 import mainApp.chromosome.Chromosome;
 
+/**
+ * Class: TruncationSelection
+ * Purpose: Implementing truncation selection algorithm 
+ */
 public class TruncationSelection implements SelectionMethod {
 
     @Override

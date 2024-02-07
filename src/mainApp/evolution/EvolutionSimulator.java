@@ -10,7 +10,10 @@ import mainApp.chromosome.Chromosome;
 import mainApp.fitnessfunctions.FitnessFunction;
 import mainApp.selectionmethods.SelectionMethod;
 
-
+/**
+ * Class: EvolutionSimulator
+ * Purpose: Simulating genetic algorithm
+ */
 public class EvolutionSimulator {
 
     private SelectionMethod selectionMethod;
@@ -36,14 +39,13 @@ public class EvolutionSimulator {
         }
     }
 
-
     public void startSimulation(int pop_size, int bitlength, int seed, double mutation_rate, int generations) {
         this.generation = 0;
-        this.max_generation= generations;
+        this.max_generation = generations;
         this.chromosomes = new ArrayList<>();
         this.max = new ArrayList<>();
         this.min = new ArrayList<>();
-        this.average = new ArrayList<>(); 
+        this.average = new ArrayList<>();
 
         Random rand = new Random(seed);
         for (int i = 0; i < pop_size; i++) {
@@ -54,7 +56,6 @@ public class EvolutionSimulator {
         }
     }
 
-
     public void runGeneration() {
 
         for (Chromosome chr : chromosomes) {
@@ -64,7 +65,7 @@ public class EvolutionSimulator {
         HashMap<Chromosome, Double> values = new HashMap<>();
         ArrayList<Double> weights = new ArrayList<>();
 
-        for (int i = 0; i < chromosomes.size(); i ++) {
+        for (int i = 0; i < chromosomes.size(); i++) {
             Chromosome chr = this.chromosomes.get(i);
             double fitness = fitnessFunction.evaluate(chr);
             values.put(chr, fitness);
@@ -83,20 +84,20 @@ public class EvolutionSimulator {
         av /= chromosomes.size();
         this.average.add(av);
         this.max.add(max);
-        this.min.add(min); 
+        this.min.add(min);
 
-       ArrayList<Chromosome> survivors = selectionMethod.select(values);
+        ArrayList<Chromosome> survivors = selectionMethod.select(values);
 
-       ArrayList<Chromosome> new_chr = new ArrayList<>();
-       for (int i = 0; i < survivors.size(); i++) {
-            new_chr.add(new Chromosome(survivors.get(i), survivors.get(survivors.size()-i-1)));
-            new_chr.add(new Chromosome(survivors.get(survivors.size()-i-1), survivors.get(i)));
-       }
+        ArrayList<Chromosome> new_chr = new ArrayList<>();
+        for (int i = 0; i < survivors.size(); i++) {
+            new_chr.add(new Chromosome(survivors.get(i), survivors.get(survivors.size() - i - 1)));
+            new_chr.add(new Chromosome(survivors.get(survivors.size() - i - 1), survivors.get(i)));
+        }
 
-       this.chromosomes = new_chr;
-    }   
+        this.chromosomes = new_chr;
+    }
 
-    public ArrayList<Chromosome> getPopulationChromosomes () {
+    public ArrayList<Chromosome> getPopulationChromosomes() {
         return new ArrayList<>(this.chromosomes);
     }
 
