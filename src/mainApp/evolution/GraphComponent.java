@@ -36,7 +36,7 @@ public class GraphComponent extends JComponent {
         ArrayList<Double> average = sim.average;
 
         g2.setStroke(new BasicStroke(3));
-        
+
         g2.setColor(Color.BLACK);
         g2.drawLine(0, 0, 0, 0- 100 * SCALE);
         g2.drawLine(0, 0, 0+ 200 * SCALE, 0);
@@ -48,14 +48,13 @@ public class GraphComponent extends JComponent {
 
         for (int i = 0; i < 11; i++) {
             g2.drawLine(-5, - i * SCALE * MAX_GENERATIONS / 10, 5, - i * SCALE * MAX_GENERATIONS / 10);
-            g2.drawString(""+i*10, - 35, 5 - i * SCALE * MAX_GENERATIONS / 10);
+            g2.drawString(""+i*20, - 35, 5 - i * SCALE * MAX_GENERATIONS / 10);
 
             g2.drawLine(SCALE * MAX_GENERATIONS * i / 10, -5, SCALE * MAX_GENERATIONS * i / 10, 5);
             g2.drawString(""+i*MAX_GENERATIONS/10, - 10 + SCALE * MAX_GENERATIONS * i / 10, 30);
         }
         
         if (sim.max != null) {
-            System.out.println(max.size());
             ArrayList<Integer> max_int = new ArrayList<>();
             ArrayList<Integer> average_int = new ArrayList<>();
             ArrayList<Integer> min_int = new ArrayList<>();

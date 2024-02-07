@@ -2,13 +2,15 @@ package mainApp.evolution;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -56,6 +58,16 @@ public class EvolutionViewer {
         JTextField genomeBox = new JTextField("100");
 
         JButton startButton = new JButton("Start Simulation");
+
+        ActionListener painter = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                sim.tryRunGeneration();
+                frame.repaint();
+            }
+        };
+        Timer t = new Timer(0, painter);
+        t.start();
+
         startButton.addActionListener((e) -> {
             if (selectionBox.getSelectedIndex() == 0) {
                 sim.setSelectionMethod(new RankSelection());
@@ -76,14 +88,8 @@ public class EvolutionViewer {
             double mutate_rate = Double.parseDouble(mutateBox.getText()) / genomes;
             int population = Integer.parseInt(populationBox.getText());
 
-            sim.startSimulation(population, genomes, (int)(100 * Math.random()), mutate_rate);
+            sim.startSimulation(population, genomes, (int)(100 * Math.random()), mutate_rate, generations);
 
-            for (int i = 0; i < generations; i++) {
-                if (generations % 5 == 0) {
-                    sim.runGeneration();
-                    frame.update(frame.getGraphics());
-                }
-            }
             
         });
 

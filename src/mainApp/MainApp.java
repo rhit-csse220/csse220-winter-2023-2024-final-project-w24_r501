@@ -26,13 +26,6 @@ public class MainApp {
 		cviewer.runView();
 		EvolutionViewer eviewer = new EvolutionViewer();
 		eviewer.runViewer();
-
-		// EvolutionViewer simulation = new EvolutionViewer();
-
-		// EvolutionSimulator sim = new EvolutionSimulator();
-		// sim.startSimulation(100, 100, (int) Math.random() * 100, 1);
-		// sim.setFitnessFunction(new SimpleFitnessFunction());
-		// sim.setSelectionMethod(new TruncationSelection());
 	} // runApp
 
 	/**

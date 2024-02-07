@@ -20,6 +20,8 @@ public class EvolutionSimulator {
     public ArrayList<Double> max;
     public ArrayList<Double> min;
     public ArrayList<Double> average;
+    int generation = 0;
+    int max_generation = 0;
 
     public GraphComponent graphcomp;
 
@@ -27,8 +29,17 @@ public class EvolutionSimulator {
         this.graphcomp = graphcomp;
     }
 
+    public void tryRunGeneration() {
+        if (generation < max_generation) {
+            generation += 1;
+            runGeneration();
+        }
+    }
 
-    public void startSimulation(int pop_size, int bitlength, int seed, double mutation_rate) {
+
+    public void startSimulation(int pop_size, int bitlength, int seed, double mutation_rate, int generations) {
+        this.generation = 0;
+        this.max_generation= generations;
         this.chromosomes = new ArrayList<>();
         this.max = new ArrayList<>();
         this.min = new ArrayList<>();
