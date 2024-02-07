@@ -174,7 +174,9 @@ public class Chromosome {
     public void updateMutationRate(double mutationRate) {
         this.mutationRate = mutationRate / geneList.size();
     }
-
+    /*
+     * Randomize Method to create 100 or 20 Chromosome
+     */
     public void randomize(Random rand, int bitsize) {
         if (!(bitsize == 100 || bitsize == 20)) {
             throw new UnsupportedOperationException("Genome size can only be 20 or 100");
@@ -189,7 +191,9 @@ public class Chromosome {
             }
         }
     }
-
+    /*
+     * Return FitnessValue
+     */
     public double getFitnessValue() {
         return fitnessValue;
     }
