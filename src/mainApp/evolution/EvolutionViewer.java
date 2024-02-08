@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,6 +32,9 @@ public class EvolutionViewer {
     }
     
     public void runViewer() {
+    	/*
+    	 * JFrame for graphics and to view Evolution
+    	 */
         JFrame frame = new JFrame("Evolution Viewer");
         frame.setPreferredSize(new Dimension(1000, 500));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,9 +43,15 @@ public class EvolutionViewer {
         GraphComponent graph = new GraphComponent(sim);
         graph.frame = frame;
 
+        
+        /*
+         * Set Mutation Rate
+         */
         JLabel mutateLabel = new JLabel("M Rate:_/N");
         JTextField mutateBox = new JTextField("1.0");
-
+        /*
+         * Selection Method to rank Chromosome for the graph
+         */
         String[] selectionOp = {"Rank", "Roulette", "Truncation"};
         JLabel selectionLabel = new JLabel("Selection");
         JComboBox selectionBox = new JComboBox<>(selectionOp);
@@ -49,16 +59,24 @@ public class EvolutionViewer {
         String[] fitnessOp= {"Simple", "Max"};
         JComboBox fitnessBox = new JComboBox<>(fitnessOp);
         JLabel fitnessLabel = new JLabel("Fitness");
-
+        /*
+         * Choosing number of generations and population
+         */
         JLabel generationsLabel = new JLabel("Generations");
         JTextField generationsBox = new JTextField("100");
-
+        
+        JLabel crossOver = new JLabel ("CrossOver");
+        JCheckBox crossOverCheckBox = new JCheckBox();
+        
         JLabel populationLabel = new JLabel("Population");
         JTextField populationBox = new JTextField("100");
 
         JLabel genomeLabel = new JLabel("Genome Length");
         JTextField genomeBox = new JTextField("100");
-
+        
+        JLabel Elitism = new JLabel ("Elitism"); 
+        JTextField elitismBox = new JTextField("50");
+        
         JButton startButton = new JButton("Start Simulation");
 
         ActionListener painter = new ActionListener() {
@@ -84,11 +102,20 @@ public class EvolutionViewer {
             } else {
                 sim.setFitnessFunction(new MaxConsecutiveFitness());
             }
+            /*
+             * ToDo: Add Method for checking box
+             */
+            if(crossOverCheckBox.isSelected()) {
+            	
+            }else {
+            	
+            }
 
             int generations = Integer.parseInt(generationsBox.getText());
             int genomes = Integer.parseInt(genomeBox.getText());
             double mutate_rate = Double.parseDouble(mutateBox.getText()) / genomes;
             int population = Integer.parseInt(populationBox.getText());
+            double elitism_rate = Double.parseDouble(elitismBox.getText());
 
             sim.startSimulation(population, genomes, (int)(100 * Math.random()), mutate_rate, generations);
 
@@ -99,6 +126,8 @@ public class EvolutionViewer {
         buttons.add(mutateLabel);
         buttons.add(mutateBox);
         buttons.add(selectionLabel);
+        buttons.add(crossOver);
+        buttons.add(crossOverCheckBox);
         buttons.add(fitnessBox);
         buttons.add(selectionLabel);
         buttons.add(selectionBox);
@@ -110,7 +139,9 @@ public class EvolutionViewer {
         buttons.add(generationsBox);
         buttons.add(genomeLabel);
         buttons.add(genomeBox);
-
+        buttons.add(Elitism);
+        buttons.add(elitismBox);
+        
         frame.add(graph);
         frame.add(buttons, BorderLayout.SOUTH);
         frame.pack();
