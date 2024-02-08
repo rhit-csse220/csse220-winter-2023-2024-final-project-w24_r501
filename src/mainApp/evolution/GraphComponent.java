@@ -14,72 +14,97 @@ import javax.swing.JFrame;
  * Purpose: Displaying progress of an EvolutionSimulator
  */
 public class GraphComponent extends JComponent {
-    private EvolutionSimulator sim;
-    public JFrame frame;
     private final int X_OFF = 125;
     private final int Y_START = 350;
     private final int SCALE = 3;
     private final int MAX_GENERATIONS = 200;
 
-    public GraphComponent(EvolutionSimulator sim) {
-        this.sim = sim;
-        sim.setGraph(this);
+    private final ArrayList<Double> bestFitnessData = new ArrayList<>();
+    private final ArrayList<Double> averageFitnessData = new ArrayList<>();
+    private final ArrayList<Double> worstFitnessData = new ArrayList<>();
+
+
+
+
+    /**
+     * Clears the current graph of all data.
+     */
+    public void clearGraph(){
+        bestFitnessData.clear();
+        averageFitnessData.clear();
+        worstFitnessData.clear();
+        repaint();
     }
 
-    public void setSim(EvolutionSimulator sim) {
-        this.sim = sim;
+    // Update with new data points, assumed to be after the previous data.
+    public void addEntry(double bestFitness, double averageFitness, double worstFitness){
+        bestFitnessData.add(bestFitness);
+        averageFitnessData.add(averageFitness);
+        worstFitnessData.add(worstFitness);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g.create();
+        Graphics2D g2 = (Graphics2D) g;
         g2.translate(X_OFF, Y_START);
-        ArrayList<Double> max = sim.max;
-        ArrayList<Double> min = sim.min;
-        ArrayList<Double> average = sim.average;
 
         g2.setStroke(new BasicStroke(3));
 
         g2.setColor(Color.BLACK);
-        g2.drawLine(0, 0, 0, 0- 100 * SCALE);
-        g2.drawLine(0, 0, 0+ 200 * SCALE, 0);
+        g2.drawLine(0, 0, 0, -100 * SCALE);
+        g2.drawLine(0, 0, 200 * SCALE, 0);
 
         g2.drawString("Generations", 100 * SCALE, 50);
         g2.drawString("Fitness", -100, -50 * SCALE);
         
         g2.setStroke(new BasicStroke(3));
 
+        //Drawing the graph axes
         for (int i = 0; i < 11; i++) {
+            //X axis
             g2.drawLine(-5, - i * SCALE * MAX_GENERATIONS / 10, 5, - i * SCALE * MAX_GENERATIONS / 10);
-            g2.drawString(""+i*20, - 35, 5 - i * SCALE * MAX_GENERATIONS / 10);
+            g2.drawString("" + i * 20, - 35, 5 - i * SCALE * MAX_GENERATIONS / 10);
 
+            //Y Axis
             g2.drawLine(SCALE * MAX_GENERATIONS * i / 10, -5, SCALE * MAX_GENERATIONS * i / 10, 5);
-            g2.drawString(""+i*MAX_GENERATIONS/10, - 10 + SCALE * MAX_GENERATIONS * i / 10, 30);
-        }
-        
-        if (sim.max != null) {
-            ArrayList<Integer> max_int = new ArrayList<>();
-            ArrayList<Integer> average_int = new ArrayList<>();
-            ArrayList<Integer> min_int = new ArrayList<>();
-
-            // annoying casting 
-            for (int i = 0; i < max.size(); i++) {
-                max_int.add((int) Math.round(max.get(i)));
-                average_int.add((int) Math.round(average.get(i)));
-                min_int.add((int) Math.round(min.get(i)));
-            }
-            
-            for (int i = 0; i < max.size() - 1; i++) {
-                g2.setColor(Color.RED);
-                g2.drawLine(i*SCALE, -SCALE * min_int.get(i), (i+1)*SCALE, -SCALE * min_int.get(i+1));
-                g2.setColor(Color.BLACK);
-                g2.drawLine(i*SCALE, -SCALE * average_int.get(i), (i+1)*SCALE, -SCALE * average_int.get(i+1));
-                g2.setColor(Color.GREEN);
-                g2.drawLine(i*SCALE, -SCALE * max_int.get(i), (i+1)*SCALE,  -SCALE * max_int.get(i+1));
-            }
+            g2.drawString(""+ i * MAX_GENERATIONS/10, - 10 + SCALE * MAX_GENERATIONS * i / 10, 30);
         }
 
+        g2.setStroke(new BasicStroke(2));
+        //Draw the data lines
+        for (int i = 1; i < bestFitnessData.size(); i++) {
+            //Best line
+            g2.setColor(Color.GREEN);
+            drawPlotLine(g2,
+                    i - 1, bestFitnessData.get(i - 1),
+                    i,  bestFitnessData.get(i)
+            );
+
+            //Average line
+            g2.setColor(Color.BLACK);
+            drawPlotLine(g2,
+                    i - 1, averageFitnessData.get(i - 1),
+                    i, averageFitnessData.get(i)
+            );
+
+            //Worst line
+            g2.setColor(Color.RED);
+            drawPlotLine(g2,
+                    i - 1, worstFitnessData.get(i - 1),
+                    i, worstFitnessData.get(i)
+            );
+
+        }
+
+    }
+
+
+    private void drawPlotLine(Graphics2D g2, double x1, double y1, double x2, double y2){
+        g2.drawLine(
+                (int) x1 * 2* SCALE, (int) (-SCALE * y1),
+                (int) x2 * 2 * SCALE, (int) (-SCALE * y2)
+        );
     }
 
 }

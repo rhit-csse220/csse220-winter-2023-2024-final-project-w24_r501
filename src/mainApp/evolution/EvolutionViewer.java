@@ -2,8 +2,6 @@ package mainApp.evolution;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
@@ -26,7 +24,16 @@ import mainApp.selectionmethods.TruncationSelection;
  * Purpose: Handling the frame for displaying evolution progress
  */
 public class EvolutionViewer {
+
+    private enum SimulationState {
+        STOPPED,
+        RUNNING,
+        PAUSED
+    }
+
     public EvolutionSimulator sim = new EvolutionSimulator();
+
+    private SimulationState simState = SimulationState.STOPPED;
 
     public EvolutionViewer() {
     }
@@ -36,72 +43,112 @@ public class EvolutionViewer {
     	 * JFrame for graphics and to view Evolution
     	 */
         JFrame frame = new JFrame("Evolution Viewer");
-        frame.setPreferredSize(new Dimension(1000, 500));
+        frame.setPreferredSize(new Dimension(1100, 500));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel buttons = new JPanel();
-        GraphComponent graph = new GraphComponent(sim);
-        graph.frame = frame;
+        GraphComponent graph = new GraphComponent();
 
-        
-        /*
-         * Set Mutation Rate
-         */
-        JLabel mutateLabel = new JLabel("M Rate:_/N");
+
+        //Evolution Configuration Options
+
         JTextField mutateBox = new JTextField("1.0");
-        /*
-         * Selection Method to rank Chromosome for the graph
-         */
+        buttons.add(new JLabel("M Rate:_/N"));
+        buttons.add(mutateBox);
+
         String[] selectionOp = {"Rank", "Roulette", "Truncation"};
-        JLabel selectionLabel = new JLabel("Selection");
-        JComboBox selectionBox = new JComboBox<>(selectionOp);
+        JComboBox<String> selectionBox = new JComboBox<>(selectionOp);
+        buttons.add(new JLabel("Selection"));
+        buttons.add(selectionBox);
+
 
         String[] fitnessOp= {"Simple", "Max"};
-        JComboBox fitnessBox = new JComboBox<>(fitnessOp);
-        JLabel fitnessLabel = new JLabel("Fitness");
-        /*
-         * Choosing number of generations and population
-         */
-        JLabel generationsLabel = new JLabel("Generations");
-        JTextField generationsBox = new JTextField("100");
-        
-        JLabel crossOver = new JLabel ("CrossOver");
-        JCheckBox crossOverCheckBox = new JCheckBox();
-        
-        JLabel populationLabel = new JLabel("Population");
-        JTextField populationBox = new JTextField("100");
+        JComboBox<String> fitnessBox = new JComboBox<>(fitnessOp);
+        buttons.add(new JLabel("Fitness"));
+        buttons.add(fitnessBox);
 
-        JLabel genomeLabel = new JLabel("Genome Length");
+
+        JTextField generationsBox = new JTextField("100");
+        buttons.add(new JLabel("Generations"));
+        buttons.add(generationsBox);
+
+        JCheckBox crossOverCheckBox = new JCheckBox();
+        buttons.add(new JLabel ("CrossOver"));
+        buttons.add(crossOverCheckBox);
+
+        JTextField populationBox = new JTextField("100");
+        buttons.add(new JLabel("Population"));
+        buttons.add(populationBox);
+
         JTextField genomeBox = new JTextField("100");
-        
-        JLabel Elitism = new JLabel ("Elitism"); 
+        buttons.add(new JLabel("Genome Length"));
+        buttons.add(genomeBox);
+
         JTextField elitismBox = new JTextField("50");
+        buttons.add(new JLabel ("Elitism"));
+        buttons.add(elitismBox);
         
         JButton startButton = new JButton("Start Simulation");
+        buttons.add(startButton);
 
-        ActionListener painter = new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                sim.tryRunGeneration();
-                frame.repaint();
+        Timer t = new Timer(0, (e) -> {
+
+            if(simState == SimulationState.RUNNING){
+                //Run the next generation
+                if(sim.runGeneration()){
+                    //Update the graph
+                    graph.addEntry(sim.getMaxFitness(), sim.getAverageFitness(), sim.getMinFitness());
+                    System.out.println("Max: "+sim.getMaxFitness()+ " Average: "+sim.getAverageFitness()+ " Min: "+sim.getMinFitness());
+                } else {
+                    simState = SimulationState.STOPPED;
+                    startButton.setText("Start");
+                }
+                graph.repaint();
             }
-        };
-        Timer t = new Timer(0, painter);
+        });
         t.start();
 
         startButton.addActionListener((e) -> {
-            if (selectionBox.getSelectedIndex() == 0) {
-                sim.setSelectionMethod(new RankSelection());
-            } else if (selectionBox.getSelectedIndex() == 1) {
-                sim.setSelectionMethod(new RouletteSelection());
-            } else {
-                sim.setSelectionMethod(new TruncationSelection());
+            //If this is the start of the sim
+            if(simState == SimulationState.STOPPED){
+                graph.clearGraph();
+
+                //Check the fitness function and selection method
+                if (selectionBox.getSelectedIndex() == 0) {
+                    sim.setSelectionMethod(new RankSelection());
+                } else if (selectionBox.getSelectedIndex() == 1) {
+                    sim.setSelectionMethod(new RouletteSelection());
+                } else {
+                    sim.setSelectionMethod(new TruncationSelection());
+                }
+
+                if (fitnessBox.getSelectedIndex() == 0) {
+                    sim.setFitnessFunction(new SimpleFitnessFunction());
+                } else {
+                    sim.setFitnessFunction(new MaxConsecutiveFitness());
+                }
+
+
+                int generations = Integer.parseInt(generationsBox.getText());
+                int genomes = Integer.parseInt(genomeBox.getText());
+                double mutate_rate = Double.parseDouble(mutateBox.getText());
+                int population = Integer.parseInt(populationBox.getText());
+                double elitism_rate = Double.parseDouble(elitismBox.getText());
+
+                sim.startSimulation(population, genomes, (int)(100 * Math.random()), mutate_rate, generations);
+                simState = SimulationState.RUNNING;
+                startButton.setText("Pause");
+
+            } else if(simState == SimulationState.RUNNING){
+                startButton.setText("Continue");
+                simState = SimulationState.PAUSED;
+            } else if(simState == SimulationState.PAUSED){
+                startButton.setText("Pause");
+                simState = SimulationState.RUNNING;
             }
 
-            if (fitnessBox.getSelectedIndex() == 0) {
-                sim.setFitnessFunction(new SimpleFitnessFunction());
-            } else {
-                sim.setFitnessFunction(new MaxConsecutiveFitness());
-            }
+
+
             /*
              * ToDo: Add Method for checking box
              */
@@ -111,37 +158,11 @@ public class EvolutionViewer {
             	
             }
 
-            int generations = Integer.parseInt(generationsBox.getText());
-            int genomes = Integer.parseInt(genomeBox.getText());
-            double mutate_rate = Double.parseDouble(mutateBox.getText()) / genomes;
-            int population = Integer.parseInt(populationBox.getText());
-            double elitism_rate = Double.parseDouble(elitismBox.getText());
-
-            sim.startSimulation(population, genomes, (int)(100 * Math.random()), mutate_rate, generations);
 
             
         });
 
-        buttons.add(startButton);
-        buttons.add(mutateLabel);
-        buttons.add(mutateBox);
-        buttons.add(selectionLabel);
-        buttons.add(crossOver);
-        buttons.add(crossOverCheckBox);
-        buttons.add(fitnessBox);
-        buttons.add(selectionLabel);
-        buttons.add(selectionBox);
-        buttons.add(fitnessBox);
-        buttons.add(fitnessLabel);
-        buttons.add(populationLabel);
-        buttons.add(populationBox);
-        buttons.add(generationsLabel);
-        buttons.add(generationsBox);
-        buttons.add(genomeLabel);
-        buttons.add(genomeBox);
-        buttons.add(Elitism);
-        buttons.add(elitismBox);
-        
+
         frame.add(graph);
         frame.add(buttons, BorderLayout.SOUTH);
         frame.pack();
