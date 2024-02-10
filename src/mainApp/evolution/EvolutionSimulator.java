@@ -38,13 +38,25 @@ public class EvolutionSimulator {
         Random rand = new Random(seed);
         for (int i = 0; i < pop_size; i++) {
             Chromosome chr = new Chromosome();
-            chr.randomize(rand, chromosomeLength);
+            chr.randomize( chromosomeLength);
             chr.updateMutationRate(mutation_rate);
             this.chromosomes.add(chr);
         }
+       
     }
-
-
+    public ArrayList<Chromosome> getChromosomeList() {
+        this.chromosomes = new ArrayList<>();
+    	if(this.chromosomes.isEmpty()) {
+    		 for (int i = 0; i < 100; i++) {
+    	            Chromosome chr = new Chromosome();
+    	            chr.randomize( 100);
+    	            chr.updateMutationRate(10);
+    	            this.chromosomes.add(chr);
+    	        }
+    	}
+    	return this.chromosomes;
+    }
+   
 
     public boolean runGeneration() {
         //Check if we have reached the end

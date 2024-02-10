@@ -1,13 +1,7 @@
 package mainApp;
 
-import javax.swing.JFrame;
-
-import mainApp.evolution.EvolutionSimulator;
-import mainApp.evolution.EvolutionViewer;
-import mainApp.fitnessfunctions.SimpleFitnessFunction;
-import mainApp.selectionmethods.RankSelection;
-import mainApp.selectionmethods.TruncationSelection;
-import mainApp.chromosome.ChromosomeViewer;;
+import mainApp.chromosome.ChromosomeViewer;
+import mainApp.evolution.EvolutionViewer;;
 
 /**
  * Class: MainApp
@@ -26,6 +20,7 @@ public class MainApp {
 		cviewer.runView();
 		EvolutionViewer eviewer = new EvolutionViewer();
 		eviewer.runViewer();
+	
 	} // runApp
 
 	/**

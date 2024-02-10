@@ -15,7 +15,7 @@ public class MatchFitness implements FitnessFunction {
 
     public double evaluate(Chromosome chromosome) {
         double amount = 0;
-        for (int i = 0; i < chromosome.getSize(); i++) {
+        for (int i = 0; i < chromosome.getGeneList().size(); i++) {
             if (target.getGene(i) == chromosome.getGene(i)) {
                 amount += 1;
             }

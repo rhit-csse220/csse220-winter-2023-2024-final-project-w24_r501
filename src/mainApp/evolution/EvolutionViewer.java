@@ -2,8 +2,8 @@ package mainApp.evolution;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-
-import javax.swing.Timer;
+import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -12,7 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 
+import mainApp.chromosome.Chromosome;
 import mainApp.fitnessfunctions.MaxConsecutiveFitness;
 import mainApp.fitnessfunctions.SimpleFitnessFunction;
 import mainApp.selectionmethods.RankSelection;
@@ -45,10 +47,24 @@ public class EvolutionViewer {
         JFrame frame = new JFrame("Evolution Viewer");
         frame.setPreferredSize(new Dimension(1100, 500));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        
+        JFrame myFrame = new JFrame("Population");
+        myFrame.setPreferredSize(new Dimension(600,600));
+        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         JPanel buttons = new JPanel();
         GraphComponent graph = new GraphComponent();
-
+        
+		
+        JPanel panelss= new JPanel();
+        ArrayList<Chromosome> list = sim.getChromosomeList();
+        
+        GridLayout layout = new GridLayout(10,10,1,1);
+        myFrame.setLayout(layout);
+        for(int a=0;a<list.size();a++) {
+        	myFrame.add(list.get(a));
+        }
+       
 
         //Evolution Configuration Options
 
@@ -146,7 +162,7 @@ public class EvolutionViewer {
                 startButton.setText("Pause");
                 simState = SimulationState.RUNNING;
             }
-
+            
 
 
             /*
@@ -158,17 +174,20 @@ public class EvolutionViewer {
             	
             }
 
-
+            for(int a=0;a<list.size();a++) {
+            	list.get(a).repaint();
+            }
             
         });
 
-
+        
         frame.add(graph);
         frame.add(buttons, BorderLayout.SOUTH);
         frame.pack();
         frame.setVisible(true);
 
-
+        myFrame.pack();
+        myFrame.setVisible(true);
 
     }
 }

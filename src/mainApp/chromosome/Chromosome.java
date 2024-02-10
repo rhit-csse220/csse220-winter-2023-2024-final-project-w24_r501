@@ -1,5 +1,8 @@
 package mainApp.chromosome;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -7,6 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+import javax.swing.JComponent;
+
 
 /**
  * Class: Chromosome
@@ -18,13 +24,13 @@ import java.util.Scanner;
  * @Param size : the size of the gene
  * @Param mutationRate : rate of mutation of the the gene
  */
-public class Chromosome {
+public class Chromosome extends JComponent{
     /*
      * Instance variable
      */
     private ArrayList<Character> geneList = new ArrayList<>();;
     public double mutationRate;
-
+    private int column;
     private static final int DEFAULT_SIZE = 100;
 
     /*
@@ -38,25 +44,27 @@ public class Chromosome {
         }
         // Provide a default mutation rate.
         this.mutationRate = 1.0 / DEFAULT_SIZE;
+        this.column=0;
 
     }
 
     public Chromosome(Chromosome chromosome) {
         this();
         this.geneList.clear();
-        for (int i = 0; i < chromosome.getSize(); i++) {
+        for (int i = 0; i < chromosome.getGeneList().size(); i++) {
             this.geneList.add(chromosome.getGene(i));
         }
 
         this.mutationRate = chromosome.mutationRate;
+        this.column=0;
     }
 
     public Chromosome(Chromosome c1, Chromosome c2) {
-        for (int i = 0; i < c1.getSize() / 2; i++) {
+        for (int i = 0; i < c1.getGeneList().size() / 2; i++) {
             this.geneList.add(c1.getGene(i));
         }
 
-        for (int i = c1.getSize() / 2; i < c1.getSize(); i++) {
+        for (int i = c1.getGeneList().size() / 2; i < c1.getGeneList().size(); i++) {
             this.geneList.add(c2.getGene(i));
         }
 
@@ -168,9 +176,9 @@ public class Chromosome {
         this.geneList = genes;
     }
 
-    public int getSize() {
-        return geneList.size();
-    }
+//    public int getSize() {
+//        return geneList.size();
+//    }
 
     public void updateMutationRate(double mutationRate) {
         this.mutationRate = mutationRate / geneList.size();
@@ -178,7 +186,30 @@ public class Chromosome {
     /*
      * Randomize Method to create 100 or 20 Chromosome
      */
-    public void randomize(Random rand, int bitsize) {
+    @Override
+	protected void paintComponent(Graphics g) {
+    	super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		int c =0;
+		for(int a =0; a< getGeneList().size();a+=10) {
+			for(int b =0;b<10;b++) {
+			
+				if (this.geneList.get(c) == '0') {
+					g2.setColor(Color.red);
+				}else {
+					g2.setColor(Color.black);
+				}
+				g2.fillRect(5*b, a/2, 5, 5);
+				g2.setColor(Color.black);
+				g2.setColor(Color.black);
+				g2.drawRect(5*b, a/2, 5, 5);
+				c++;
+			}
+		}
+		
+    }
+    public void randomize(int bitsize) {
+    	Random rand = new Random();
         if (!(bitsize == 100 || bitsize == 20)) {
             throw new UnsupportedOperationException("Genome size can only be 20 or 100");
         }

@@ -11,7 +11,7 @@ public class SimpleFitnessFunction implements FitnessFunction {
     @Override
     public double evaluate(Chromosome chromosome) {
         int amount = 0;
-        for (int i = 0; i < chromosome.getSize(); i++) {
+        for (int i = 0; i < chromosome.getGeneList().size(); i++) {
             if (chromosome.getGene(i) == '1') {
                 amount += 1;
             }
