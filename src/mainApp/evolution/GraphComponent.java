@@ -80,7 +80,6 @@ public class GraphComponent extends JComponent {
                     i - 1, bestFitnessData.get(i - 1),
                     i,  bestFitnessData.get(i)
             );
-
             //Average line
             g2.setColor(Color.BLACK);
             drawPlotLine(g2,

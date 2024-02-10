@@ -36,7 +36,7 @@ public class EvolutionViewer {
     public EvolutionSimulator sim = new EvolutionSimulator();
 
     private SimulationState simState = SimulationState.STOPPED;
-
+    private  ArrayList<Chromosome> list = new ArrayList<Chromosome>();
     public EvolutionViewer() {
     }
     
@@ -56,13 +56,13 @@ public class EvolutionViewer {
         GraphComponent graph = new GraphComponent();
         
 		
-        JPanel panelss= new JPanel();
-        ArrayList<Chromosome> list = sim.getChromosomeList();
+        list = sim.getChromosomeList();
         
-        GridLayout layout = new GridLayout(10,10,1,1);
+        GridLayout layout = new GridLayout(10,10,0,0);
         myFrame.setLayout(layout);
         for(int a=0;a<list.size();a++) {
         	myFrame.add(list.get(a));
+        	
         }
        
 
@@ -125,7 +125,11 @@ public class EvolutionViewer {
         t.start();
 
         startButton.addActionListener((e) -> {
-            //If this is the start of the sim
+            //If this is the start of the 
+        	
+        	
+        	
+        	
             if(simState == SimulationState.STOPPED){
                 graph.clearGraph();
 
@@ -152,6 +156,7 @@ public class EvolutionViewer {
                 double elitism_rate = Double.parseDouble(elitismBox.getText());
 
                 sim.startSimulation(population, genomes, (int)(100 * Math.random()), mutate_rate, generations);
+             
                 simState = SimulationState.RUNNING;
                 startButton.setText("Pause");
 
@@ -163,7 +168,7 @@ public class EvolutionViewer {
                 simState = SimulationState.RUNNING;
             }
             
-
+            
 
             /*
              * ToDo: Add Method for checking box
@@ -174,10 +179,7 @@ public class EvolutionViewer {
             	
             }
 
-            for(int a=0;a<list.size();a++) {
-            	list.get(a).repaint();
-            }
-            
+          
         });
 
         

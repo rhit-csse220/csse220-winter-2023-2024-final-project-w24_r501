@@ -204,6 +204,7 @@ public class Chromosome extends JComponent{
 				g2.setColor(Color.black);
 				g2.drawRect(5*b, a/2, 5, 5);
 				c++;
+				
 			}
 		}
 		

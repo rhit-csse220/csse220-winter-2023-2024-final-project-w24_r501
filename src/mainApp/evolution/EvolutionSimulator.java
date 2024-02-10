@@ -18,7 +18,7 @@ public class EvolutionSimulator {
 
     private SelectionMethod selectionMethod;
     private FitnessFunction fitnessFunction;
-    private ArrayList<Chromosome> chromosomes;
+    private ArrayList<Chromosome> chromosomes= new ArrayList<>();
 
 
     public double max = 0;
@@ -45,7 +45,6 @@ public class EvolutionSimulator {
        
     }
     public ArrayList<Chromosome> getChromosomeList() {
-        this.chromosomes = new ArrayList<>();
     	if(this.chromosomes.isEmpty()) {
     		 for (int i = 0; i < 100; i++) {
     	            Chromosome chr = new Chromosome();
