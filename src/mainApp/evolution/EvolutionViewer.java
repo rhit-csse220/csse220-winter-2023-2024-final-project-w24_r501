@@ -95,13 +95,14 @@ public class EvolutionViewer {
         JButton startButton = new JButton("Start Simulation");
         buttons.add(startButton);
 
-        Timer t = new Timer(100, (e) -> {
+        Timer t = new Timer(50, (e) -> {
 
             if(simState == SimulationState.RUNNING){
                 //Run the next generation
                 if(sim.runGeneration()){
                     //Update the graph
-                    graph.addEntry(sim.getMaxFitness(), sim.getAverageFitness(), sim.getMinFitness(), sim.getHammingDistance());
+                    graph.addEntry(sim.getMaxFitness(), sim.getAverageFitness(), sim.getMinFitness(),
+                            sim.getHammingDistance(), sim.getPercentUnique());
 
                     //Update the chromosome live viewer
                     liveChromosomeComponent.setNewGeneration(sim.getCurrentGeneration());

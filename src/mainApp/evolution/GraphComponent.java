@@ -25,6 +25,8 @@ public class GraphComponent extends JComponent {
 
     private final ArrayList<Double> hammingDistanceData = new ArrayList<>();
 
+    private final ArrayList<Double> percentUniqueData = new ArrayList<>();
+
 
 
 
@@ -36,6 +38,7 @@ public class GraphComponent extends JComponent {
         averageFitnessData.clear();
         worstFitnessData.clear();
         hammingDistanceData.clear();
+        percentUniqueData.clear();
         repaint();
     }
 
@@ -44,11 +47,13 @@ public class GraphComponent extends JComponent {
     }
 
     // Update with new data points, assumed to be after the previous data.
-    public void addEntry(double bestFitness, double averageFitness, double worstFitness, double hammingDistance){
+    public void addEntry(double bestFitness, double averageFitness, double worstFitness,
+                         double hammingDistance, double percentUnique){
         bestFitnessData.add(bestFitness);
         averageFitnessData.add(averageFitness);
         worstFitnessData.add(worstFitness);
         hammingDistanceData.add(hammingDistance);
+        percentUniqueData.add(percentUnique);
     }
 
     @Override
@@ -107,6 +112,13 @@ public class GraphComponent extends JComponent {
             drawPlotLine(g2,
                     i - 1, 10 * hammingDistanceData.get(i - 1),
                     i, 10 * hammingDistanceData.get(i)
+            );
+
+            //Percent Unique line
+            g2.setColor(Color.ORANGE);
+            drawPlotLine(g2,
+                    i - 1, percentUniqueData.get(i - 1),
+                    i, percentUniqueData.get(i)
             );
 
         }

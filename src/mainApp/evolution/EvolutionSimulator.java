@@ -25,8 +25,9 @@ public class EvolutionSimulator {
     private double max = 0;
     private double min = 0;
     private double average = 0;
-
     private double hammingDistance = 0;
+
+    private double percentUnique = 0;
     private int generationCount = 0;
     private int maxGenerations = 0;
     private double elitismRate = 0;
@@ -86,7 +87,6 @@ public class EvolutionSimulator {
         double currentMax = 0;
         double currentMin = 0;
         double hammingSum = 0;
-        int sumUnique = 0;
         for (Chromosome chr : chromosomes) {
             double fitness = fitnessFunction.evaluate(chr);
             values.put(chr, fitness);
@@ -99,9 +99,6 @@ public class EvolutionSimulator {
             currentMin = Math.min(fitness, currentMin);
             sum += fitness;
             hammingSum += hammingDistance(chr, target);
-
-
-
         }
         average = sum / chromosomes.size();
         max = currentMax;
@@ -113,11 +110,17 @@ public class EvolutionSimulator {
         }
 
         //check for duplicates
-        for(int i = 1; i < chromosomes.size(); i++){
-            if(chromosomes.get(i).equals(chromosomes.get(i - 1))){
+        int sumUnique = 0;
+        for(int i = 0; i < chromosomes.size(); i++){
+            for(int j = 0; j < chromosomes.size(); j++){
+                if(i == j) continue;
+                if(!values.get(chromosomes.get(i)).equals(values.get(chromosomes.get(j)))){
+                    if(!chromosomes.get(i).equals(chromosomes.get(j))) sumUnique++;
+                }
                 
             }
         }
+        percentUnique = (double) sumUnique / chromosomes.size();
 
 
         //Find how many elites we are taking out
@@ -287,6 +290,13 @@ public class EvolutionSimulator {
         return min;
     }
 
+    /**
+     * Returns the latest generation's percent of unique individuals.
+     * @return percent of unique individuals
+     */
+    public double getPercentUnique(){
+        return percentUnique;
+    }
     /**
      * Return the latest generation's minimum fitness
      * @return hamming distance
