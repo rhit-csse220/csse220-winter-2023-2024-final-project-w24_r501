@@ -17,11 +17,13 @@ public class GraphComponent extends JComponent {
     private final int X_OFF = 125;
     private final int Y_START = 350;
     private final int SCALE = 3;
-    private final int MAX_GENERATIONS = 200;
+    private int MAX_GENERATIONS = 100;
 
     private final ArrayList<Double> bestFitnessData = new ArrayList<>();
     private final ArrayList<Double> averageFitnessData = new ArrayList<>();
     private final ArrayList<Double> worstFitnessData = new ArrayList<>();
+
+    private final ArrayList<Double> hammingDistanceData = new ArrayList<>();
 
 
 
@@ -33,14 +35,20 @@ public class GraphComponent extends JComponent {
         bestFitnessData.clear();
         averageFitnessData.clear();
         worstFitnessData.clear();
+        hammingDistanceData.clear();
         repaint();
     }
 
+    public void setGenerations(int maxGenerations){
+        this.MAX_GENERATIONS = maxGenerations;
+    }
+
     // Update with new data points, assumed to be after the previous data.
-    public void addEntry(double bestFitness, double averageFitness, double worstFitness){
+    public void addEntry(double bestFitness, double averageFitness, double worstFitness, double hammingDistance){
         bestFitnessData.add(bestFitness);
         averageFitnessData.add(averageFitness);
         worstFitnessData.add(worstFitness);
+        hammingDistanceData.add(hammingDistance);
     }
 
     @Override
@@ -52,23 +60,23 @@ public class GraphComponent extends JComponent {
         g2.setStroke(new BasicStroke(3));
 
         g2.setColor(Color.BLACK);
-        g2.drawLine(0, 0, 0, -100 * SCALE);
-        g2.drawLine(0, 0, 200 * SCALE, 0);
+        g2.drawLine(0, 0, 0, -100 * SCALE); //Y axis
+        g2.drawLine(0, 0, 200 * SCALE, 0); //X axis
 
         g2.drawString("Generations", 100 * SCALE, 50);
         g2.drawString("Fitness", -100, -50 * SCALE);
         
         g2.setStroke(new BasicStroke(3));
 
-        //Drawing the graph axes
+        //Drawing the graph axes markings
         for (int i = 0; i < 11; i++) {
-            //X axis
-            g2.drawLine(-5, - i * SCALE * MAX_GENERATIONS / 10, 5, - i * SCALE * MAX_GENERATIONS / 10);
-            g2.drawString("" + i * 20, - 35, 5 - i * SCALE * MAX_GENERATIONS / 10);
+            //Y axis
+            g2.drawLine(-5, - i * 10 * SCALE, 5, - i * 10 * SCALE);
+            g2.drawString("" + i * MAX_GENERATIONS / 10, - 35, 5 - i * MAX_GENERATIONS* SCALE / 10);
 
-            //Y Axis
-            g2.drawLine(SCALE * MAX_GENERATIONS * i / 10, -5, SCALE * MAX_GENERATIONS * i / 10, 5);
-            g2.drawString(""+ i * MAX_GENERATIONS/10, - 10 + SCALE * MAX_GENERATIONS * i / 10, 30);
+            //X Axis
+            g2.drawLine(SCALE * i * 20, -5, SCALE * 20 * i, 5);
+            g2.drawString(""+ i * MAX_GENERATIONS/10, - 10 + SCALE * 20 * i, 30);
         }
 
         g2.setStroke(new BasicStroke(2));
@@ -94,6 +102,13 @@ public class GraphComponent extends JComponent {
                     i, worstFitnessData.get(i)
             );
 
+            //Hamming Distance line
+            g2.setColor(Color.BLUE);
+            drawPlotLine(g2,
+                    i - 1, 10 * hammingDistanceData.get(i - 1),
+                    i, 10 * hammingDistanceData.get(i)
+            );
+
         }
 
     }
@@ -101,8 +116,8 @@ public class GraphComponent extends JComponent {
 
     private void drawPlotLine(Graphics2D g2, double x1, double y1, double x2, double y2){
         g2.drawLine(
-                (int) x1 * 2* SCALE, (int) (-SCALE * y1),
-                (int) x2 * 2 * SCALE, (int) (-SCALE * y2)
+                (int) x1 * SCALE * 2 / (MAX_GENERATIONS / 100), (int) (-SCALE * y1),
+                (int) x2 * SCALE * 2 / (MAX_GENERATIONS / 100), (int) (-SCALE * y2)
         );
     }
 

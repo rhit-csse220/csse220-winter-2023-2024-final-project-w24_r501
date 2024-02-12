@@ -16,6 +16,8 @@ public class SortChromosomeMap {
             datastructures.add(new ChromosomeDatastructure(k, chromosomes.get(k)));
         }
 
+        if(chromosomes.isEmpty()) return new ArrayList<>();
+
         List<ChromosomeDatastructure> sorted = mergeSort(datastructures);
         ArrayList<Chromosome> to_return = new ArrayList<>();
         for (ChromosomeDatastructure c : sorted) {
@@ -55,7 +57,7 @@ public class SortChromosomeMap {
                 mergeSort(chromosomes.subList(half, chromosomes.size())));
         List<ChromosomeDatastructure> new_list = new ArrayList<>();
 
-        while (sorted1.size() != 0 && sorted2.size() != 0) {
+        while (!sorted1.isEmpty() && !sorted2.isEmpty()) {
             double sorted1value = sorted1.get(0).value;
             double sorted2value = sorted2.get(0).value;
 
@@ -68,12 +70,12 @@ public class SortChromosomeMap {
             }
         }
 
-        while (sorted1.size() != 0) {
+        while (!sorted1.isEmpty()) {
             new_list.add(sorted1.get(0));
             sorted1.remove(0);
         }
 
-        while (sorted2.size() != 0) {
+        while (!sorted2.isEmpty()) {
             new_list.add(sorted2.get(0));
             sorted2.remove(0);
         }

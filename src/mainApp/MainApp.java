@@ -16,8 +16,8 @@ public class MainApp {
 
 	private void runApp() {
 
-		ChromosomeViewer cviewer = new ChromosomeViewer();
-		cviewer.runView();
+//		ChromosomeViewer cviewer = new ChromosomeViewer();
+//		cviewer.runView();
 		EvolutionViewer eviewer = new EvolutionViewer();
 		eviewer.runViewer();
 	

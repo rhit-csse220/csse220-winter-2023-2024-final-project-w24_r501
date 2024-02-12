@@ -77,8 +77,8 @@ public class Chromosome extends JComponent{
      */
     public void save(String filePath) {
         String contains = "";
-        for (int a = 0; a < geneList.size(); a++) {
-            contains += geneList.get(a) + "\n";
+        for (Character character : geneList) {
+            contains += character + "\n";
         }
         try {
             File file = new File(filePath);
@@ -225,4 +225,10 @@ public class Chromosome extends JComponent{
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(super.equals(obj)) return true;
+        Chromosome other = (Chromosome) obj;
+        return other.getGeneList().equals(getGeneList());
+    }
 }
