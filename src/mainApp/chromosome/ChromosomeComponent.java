@@ -109,13 +109,13 @@ public class ChromosomeComponent extends JPanel {
 		chromosomeCells = new ArrayList<>();
 		
 		
-		if (chromosome.getGeneList().size() == 100) {
+		if (chromosome.getSize() == 100) {
 			this.setLayout(new GridLayout(10, 10, 0, 0));
 		} else {
 			this.setLayout(new GridLayout(2, 10, 0, 0));
 		}
 		
-		for (int a = 0; a < chromosome.getGeneList().size(); a++) {
+		for (int a = 0; a < chromosome.getSize(); a++) {
 			ChromosomeCell chromosomeCell = new ChromosomeCell(chromosome, a);
 			add(chromosomeCell);
 			chromosomeCells.add(chromosomeCell);
