@@ -62,7 +62,7 @@ public class EvolutionViewer {
         buttons.add(selectionBox);
 
 
-        String[] fitnessOp= {"Match", "Simple", "Max"};
+        String[] fitnessOp= {"Match", "Max", "Simple"};
         JComboBox<String> fitnessBox = new JComboBox<>(fitnessOp);
         buttons.add(new JLabel("Fitness"));
         buttons.add(fitnessBox);
