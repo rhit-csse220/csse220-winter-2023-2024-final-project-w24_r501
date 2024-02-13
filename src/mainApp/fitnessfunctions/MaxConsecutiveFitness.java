@@ -3,6 +3,7 @@ package mainApp.fitnessfunctions;
 import java.util.ArrayList;
 
 import mainApp.chromosome.Chromosome;
+import mainApp.chromosome.Chromosome.Gene;
 
 /**
  * Class: MaxConsecutiveFitness
@@ -13,13 +14,13 @@ public class MaxConsecutiveFitness implements FitnessFunction {
 
     @Override
     public double evaluate(Chromosome chromosome) {
-        ArrayList<Character> genes = chromosome.getGeneList();
+        ArrayList<Gene> genes = chromosome.getGeneList();
         int idx = 0;
         int max_conc = 0;
         int cur_conc = 0;
 
         while (idx != genes.size()) {
-            if (genes.get(idx) == '1') {
+            if (genes.get(idx) == Gene.ONE) {
                 cur_conc += 1;
             } else {
                 cur_conc = 0;

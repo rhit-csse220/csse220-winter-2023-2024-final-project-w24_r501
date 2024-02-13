@@ -1,6 +1,7 @@
 package mainApp.evolution;
 
 import mainApp.chromosome.Chromosome;
+import mainApp.chromosome.Chromosome.Gene;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,8 +44,14 @@ public class LiveChromosomeComponent extends JPanel {
             //Draw each gene
             for(int i = 0; i < rows; i++){
                 for(int j = 0; j < cols; j++){
-                    if(chromosome.getGene((i * cols) + j) == '1') g2.setColor(Color.BLACK);
-                    else g2.setColor(Color.GREEN);
+                    Gene gen = chromosome.getGene((i * cols) + j);
+                    if (gen == Gene.ONE) {
+                        g2.setColor(Color.GREEN);
+                    } else if (gen == Gene.ZERO) {
+                        g2.setColor(Color.BLACK);
+                    } else {
+                        g2.setColor(Color.YELLOW);
+                    }
 
                     g2.fillRect(geneSize * j, geneSize * i, geneSize, geneSize);
                 }

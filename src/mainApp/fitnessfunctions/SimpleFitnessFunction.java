@@ -1,6 +1,7 @@
 package mainApp.fitnessfunctions;
 
 import mainApp.chromosome.Chromosome;
+import mainApp.chromosome.Chromosome.Gene;
 
 /**
  * Class: SimpleFitnessFunction
@@ -12,11 +13,10 @@ public class SimpleFitnessFunction implements FitnessFunction {
     public double evaluate(Chromosome chromosome) {
         int amount = 0;
         for (int i = 0; i < chromosome.getSize(); i++) {
-            if (chromosome.getGene(i) == '1') {
+            if (chromosome.getGene(i) == Gene.ONE) {
                 amount += 1;
             }
         }
-
         return amount;
     }
 

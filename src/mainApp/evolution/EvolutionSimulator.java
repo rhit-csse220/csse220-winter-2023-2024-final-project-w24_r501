@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import mainApp.chromosome.Chromosome;
+import mainApp.chromosome.Chromosome.Gene;
 import mainApp.fitnessfunctions.FitnessFunction;
 import mainApp.selectionmethods.SelectionMethod;
 import mainApp.selectionmethods.SortChromosomeMap;
@@ -232,8 +233,8 @@ public class EvolutionSimulator {
         //Loop through to the crossover point
         for(int i = 0; i < crossoverPoint; i++){
             //Store genes at this location
-            char originalOneGene = oneSideChild.getGene(i);
-            char originalTwoGene = twoSideChild.getGene(i);
+            Gene originalOneGene = oneSideChild.getGene(i);
+            Gene originalTwoGene = twoSideChild.getGene(i);
 
             //Swap the genes
             oneSideChild.setGene(i, originalTwoGene);
@@ -255,8 +256,8 @@ public class EvolutionSimulator {
 
     }
     private double hammingDistance(Chromosome one, Chromosome two){
-        ArrayList<Character> oneGenes = one.getGeneList();
-        ArrayList<Character> twoGenes = two.getGeneList();
+        ArrayList<Gene> oneGenes = one.getGeneList();
+        ArrayList<Gene> twoGenes = two.getGeneList();
 
         int distance = 0;
         for(int i = 0; i < oneGenes.size(); i++){

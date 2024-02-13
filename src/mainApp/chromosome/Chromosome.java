@@ -21,10 +21,14 @@ import java.util.Scanner;
  * @Param mutationRate : rate of mutation of the the gene
  */
 public class Chromosome {
+
+    public enum Gene {
+        ONE, ZERO, QUESTION
+    }
     /*
      * Instance variable
      */
-    private ArrayList<Character> geneList = new ArrayList<>();;
+    private ArrayList<Gene> geneList = new ArrayList<>();;
     public double mutationRate;
     private static final int DEFAULT_SIZE = 100;
 
@@ -35,7 +39,7 @@ public class Chromosome {
 
         // Initialize the gene list with 0s
         for (int a = 0; a < DEFAULT_SIZE; a++) {
-            this.geneList.add('0');
+            this.geneList.add(Gene.ZERO);
         }
         // Provide a default mutation rate.
         this.mutationRate = 1.0 / DEFAULT_SIZE;
@@ -70,8 +74,14 @@ public class Chromosome {
      */
     public void save(String filePath) {
         String contains = "";
-        for (Character character : geneList) {
-            contains += character + "\n";
+        for (Gene character : geneList) {
+            if (character == Gene.ZERO) {
+                contains += "0" + "\n";
+            } else if (character == Gene.ONE) {
+                contains += "1" + "\n";
+            } else if (character == Gene.QUESTION) {
+                contains += "?" + "\n";
+            }
         }
         try {
             File file = new File(filePath);
@@ -91,7 +101,7 @@ public class Chromosome {
     }
 
     public void load(String filePath) {
-        ArrayList<Character> backup = new ArrayList<>(geneList);
+        ArrayList<Gene> backup = new ArrayList<>(geneList);
         try {
             File file = new File(filePath);
             Scanner scanner = new Scanner(file);
@@ -107,7 +117,14 @@ public class Chromosome {
                 if (!(contains.charAt(a) == '1' || contains.charAt(a) == '0')) {
                     throw new InvalidChromosomeFormatException();
                 }
-                geneList.add(contains.charAt(a));
+                
+                if (contains.charAt(a) == '1') {
+                    geneList.add(Gene.ONE);
+                } else if (contains.charAt(a) == '0') {
+                    geneList.add(Gene.ZERO);
+                } else {
+                    geneList.add(Gene.QUESTION);
+                }
             }
             scanner.close();
 
@@ -136,12 +153,13 @@ public class Chromosome {
      */
     public void mutate() {
         for (int a = 0; a < geneList.size(); a++) {
+            // TODO add question
             // Run a check to see if this cell should mutate
             if (Math.random() < this.mutationRate) {
-                if (this.geneList.get(a) == '0') {
-                    this.geneList.set(a, '1');
+                if (this.geneList.get(a) == Gene.ZERO) {
+                    this.geneList.set(a, Gene.ONE);
                 } else {
-                    this.geneList.set(a, '0');
+                    this.geneList.set(a, Gene.ZERO);
                 }
             }
         }
@@ -151,21 +169,21 @@ public class Chromosome {
      * Getter and Setter method to get gene, set gene and get the geneList and the
      * size. As well as setting mutationRate.
      */
-    public char getGene(int index) {
+    public Gene getGene(int index) {
         if (index >= geneList.size())
-            return 0;
+            return Gene.ZERO;
         return this.geneList.get(index);
     }
 
-    public void setGene(int index, char letter) {
-        this.geneList.set(index, letter);
+    public void setGene(int index, Gene g) {
+        this.geneList.set(index, g);
     }
 
-    public ArrayList<Character> getGeneList() {
+    public ArrayList<Gene> getGeneList() {
         return new ArrayList<>(this.geneList);
     }
 
-    public void setGeneList(ArrayList<Character> genes) {
+    public void setGeneList(ArrayList<Gene> genes) {
         this.geneList = genes;
     }
 
@@ -186,10 +204,11 @@ public class Chromosome {
 
         this.geneList = new ArrayList<>();
         for (int i = 0; i < bitsize; i++) {
-            if (rand.nextDouble() < 0.5) {
-                geneList.add(i, '0');
+            double r = rand.nextDouble();
+            if (r < 0.5) {
+                geneList.add(i, Gene.ZERO);
             } else {
-                geneList.add(i, '1');
+                geneList.add(i, Gene.ONE);
             }
         }
     }

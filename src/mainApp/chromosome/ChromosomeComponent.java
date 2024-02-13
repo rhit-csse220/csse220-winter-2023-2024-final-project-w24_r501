@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import mainApp.chromosome.Chromosome.Gene;
+
 /**
  * Class: ChromosomeComponent
  * Purpose: Display a grid representing the genes of a chromosome, and allow the user to edit the genes by clicking.
@@ -35,7 +37,7 @@ public class ChromosomeComponent extends JPanel {
 		 * @return true if gene == 1
 		 */
 		public boolean getValue() {
-			return (chromosome.getGene(index) == '1');
+			return (chromosome.getGene(index) == Gene.ONE);
 		}
 		/*
 		 * Constructor of other class called ChromosomeCell taking two arguments chromosome and index
@@ -52,9 +54,9 @@ public class ChromosomeComponent extends JPanel {
 				@Override
 				public void mousePressed(MouseEvent e) {
 					if(getValue()) {
-						chromosome.setGene(index,'0' );
+						chromosome.setGene(index, Gene.ZERO);
 					} else {
-						chromosome.setGene(index, '1');
+						chromosome.setGene(index, Gene.ONE);
 					}
 					repaint();
 				}
