@@ -24,11 +24,7 @@ public class EvolutionSimulator {
 
 
     private double max = 0;
-    private double min = 0;
-    private double average = 0;
-    private double hammingDistance = 0;
 
-    private double percentUnique = 0;
     private int generationCount = 0;
     private int maxGenerations = 0;
     private double elitismRate = 0;
@@ -36,6 +32,8 @@ public class EvolutionSimulator {
     private int terminateLevel = 0;
 
     private Chromosome target;
+
+    private int lastFit = 0;
 
     private boolean hasTerminated = false;
     private boolean doCrossover = false;
@@ -84,44 +82,18 @@ public class EvolutionSimulator {
 
 
         //Evaluate each chromosome and find analytics
-        double sum = 0;
-        double currentMax = 0;
-        double currentMin = 0;
-        double hammingSum = 0;
+        int total_fit = 0;
         for (Chromosome chr : chromosomes) {
             double fitness = fitnessFunction.evaluate(chr);
+            total_fit += fitness;
             values.put(chr, fitness);
-
-            if(currentMax == 0){
-                currentMax = fitness;
-                currentMin = fitness;
-            }
-            currentMax = Math.max(fitness, currentMax);
-            currentMin = Math.min(fitness, currentMin);
-            sum += fitness;
-            hammingSum += hammingDistance(chr, target);
         }
-        average = sum / chromosomes.size();
-        max = currentMax;
-        min = currentMin;
-        hammingDistance = hammingSum / chromosomes.size();
+        lastFit = total_fit / chromosomes.size();
 
         if(max == terminateLevel){
             hasTerminated = true;
         }
 
-        //check for duplicates
-        int sumUnique = 0;
-        for(int i = 0; i < chromosomes.size(); i++){
-            for(int j = 0; j < chromosomes.size(); j++){
-                if(i == j) continue;
-                if(!values.get(chromosomes.get(i)).equals(values.get(chromosomes.get(j)))){
-                    if(!chromosomes.get(i).equals(chromosomes.get(j))) sumUnique++;
-                }
-                
-            }
-        }
-        percentUnique = (double) sumUnique / chromosomes.size();
 
 
         //Find how many elites we are taking out
@@ -255,17 +227,6 @@ public class EvolutionSimulator {
         return offspring;
 
     }
-    private double hammingDistance(Chromosome one, Chromosome two){
-        ArrayList<Gene> oneGenes = one.getGeneList();
-        ArrayList<Gene> twoGenes = two.getGeneList();
-
-        int distance = 0;
-        for(int i = 0; i < oneGenes.size(); i++){
-            if(oneGenes.get(i) != twoGenes.get(i)) distance++;
-        }
-
-        return (double) distance / one.getSize();
-    }
 
     /**
      * Return the latest generation's chromosomes (should be sorted)
@@ -279,39 +240,29 @@ public class EvolutionSimulator {
      * Return the latest generation's maximum fitness
      * @return maximum fitness
      */
-    public double getMaxFitness(){
-        return max;
+    public double getCorrect(){
+        return lastFit;
     }
 
     /**
      * Return the latest generation's minimum fitness
      * @return minimum fitness
      */
-    public double getMinFitness(){
-        return min;
+    public double getIncorrect(){
+        System.out.println(1 - lastFit - getUndecided());
+        return 100 - lastFit - getUndecided();
     }
 
     /**
      * Returns the latest generation's percent of unique individuals.
      * @return percent of unique individuals
      */
-    public double getPercentUnique(){
-        return percentUnique;
-    }
-    /**
-     * Return the latest generation's minimum fitness
-     * @return hamming distance
-     */
-    public double getHammingDistance(){
-        return hammingDistance;
-    }
-
-    /**
-     * Return the latest generation's average fitness
-     * @return average fitness
-     */
-    public double getAverageFitness(){
-        return average;
+    public double getUndecided(){
+        int sum = 0;
+        for (Chromosome c : chromosomes) {
+            sum += c.getUndecided();
+        }
+        return sum / chromosomes.size();
     }
 
     public void setFitnessFunction(FitnessFunction fitnessFunction) {

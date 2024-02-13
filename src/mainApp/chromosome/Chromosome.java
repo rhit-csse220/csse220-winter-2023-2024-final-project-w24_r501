@@ -204,13 +204,27 @@ public class Chromosome {
 
         this.geneList = new ArrayList<>();
         for (int i = 0; i < bitsize; i++) {
-            double r = rand.nextDouble();
-            if (r < 0.5) {
-                geneList.add(i, Gene.ZERO);
-            } else {
+            // NOTE; THIS IS SUPPOSED TO GIVE A 50-25-25 CHANCE
+            // its a feature, not a bug
+            if (rand.nextBoolean()) {
+                geneList.add(i, Gene.QUESTION);
+            } else if (rand.nextBoolean()) {
                 geneList.add(i, Gene.ONE);
+            } else {
+                geneList.add(i, Gene.ZERO);
             }
         }
+
+    }
+
+    public int getUndecided() {
+        int sum = 0;
+        for (Gene g : geneList) {
+            if (g == Gene.QUESTION) {
+                sum += 1;
+            }
+        }
+        return sum;
     }
 
     public int getSize() {

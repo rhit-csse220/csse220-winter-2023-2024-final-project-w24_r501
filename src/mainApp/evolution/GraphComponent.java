@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 
 /**
  * Class: GraphComponent
@@ -19,26 +18,17 @@ public class GraphComponent extends JComponent {
     private final int SCALE = 3;
     private int MAX_GENERATIONS = 100;
 
-    private final ArrayList<Double> bestFitnessData = new ArrayList<>();
-    private final ArrayList<Double> averageFitnessData = new ArrayList<>();
-    private final ArrayList<Double> worstFitnessData = new ArrayList<>();
-
-    private final ArrayList<Double> hammingDistanceData = new ArrayList<>();
-
-    private final ArrayList<Double> percentUniqueData = new ArrayList<>();
-
-
-
+    private final ArrayList<Double> incorrect = new ArrayList<>();
+    private final ArrayList<Double> correct = new ArrayList<>();
+    private final ArrayList<Double> undecided = new ArrayList<>();
 
     /**
      * Clears the current graph of all data.
      */
     public void clearGraph(){
-        bestFitnessData.clear();
-        averageFitnessData.clear();
-        worstFitnessData.clear();
-        hammingDistanceData.clear();
-        percentUniqueData.clear();
+        incorrect.clear();
+        correct.clear();
+        undecided.clear(); 
         repaint();
     }
 
@@ -47,13 +37,10 @@ public class GraphComponent extends JComponent {
     }
 
     // Update with new data points, assumed to be after the previous data.
-    public void addEntry(double bestFitness, double averageFitness, double worstFitness,
-                         double hammingDistance, double percentUnique){
-        bestFitnessData.add(bestFitness);
-        averageFitnessData.add(averageFitness);
-        worstFitnessData.add(worstFitness);
-        hammingDistanceData.add(hammingDistance);
-        percentUniqueData.add(percentUnique);
+    public void addEntry(Double inc, Double cor, Double un) {
+        incorrect.add(inc);
+        correct.add(cor);
+        undecided.add(un);
     }
 
     @Override
@@ -69,7 +56,7 @@ public class GraphComponent extends JComponent {
         g2.drawLine(0, 0, 200 * SCALE, 0); //X axis
 
         g2.drawString("Generations", 100 * SCALE, 50);
-        g2.drawString("Fitness", -100, -50 * SCALE);
+        g2.drawString("Relative Frequency Allele", -100, -50 * SCALE);
         
         g2.setStroke(new BasicStroke(3));
 
@@ -86,41 +73,26 @@ public class GraphComponent extends JComponent {
 
         g2.setStroke(new BasicStroke(2));
         //Draw the data lines
-        for (int i = 1; i < bestFitnessData.size(); i++) {
+        for (int i = 1; i < incorrect.size(); i++) {
             //Best line
             g2.setColor(Color.GREEN);
             drawPlotLine(g2,
-                    i - 1, bestFitnessData.get(i - 1),
-                    i,  bestFitnessData.get(i)
+                    i - 1, correct.get(i - 1),
+                    i,  correct.get(i)
             );
             //Average line
             g2.setColor(Color.BLACK);
             drawPlotLine(g2,
-                    i - 1, averageFitnessData.get(i - 1),
-                    i, averageFitnessData.get(i)
+                    i - 1, undecided.get(i - 1),
+                    i, undecided.get(i)
             );
 
             //Worst line
             g2.setColor(Color.RED);
             drawPlotLine(g2,
-                    i - 1, worstFitnessData.get(i - 1),
-                    i, worstFitnessData.get(i)
+                    i - 1, incorrect.get(i - 1),
+                    i, incorrect.get(i)
             );
-
-            //Hamming Distance line
-            g2.setColor(Color.BLUE);
-            drawPlotLine(g2,
-                    i - 1, 10 * hammingDistanceData.get(i - 1),
-                    i, 10 * hammingDistanceData.get(i)
-            );
-
-            //Percent Unique line
-            g2.setColor(Color.ORANGE);
-            drawPlotLine(g2,
-                    i - 1, percentUniqueData.get(i - 1),
-                    i, percentUniqueData.get(i)
-            );
-
         }
 
     }

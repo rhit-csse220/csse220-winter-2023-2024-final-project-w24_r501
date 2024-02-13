@@ -15,6 +15,11 @@ public class SimpleFitnessFunction implements FitnessFunction {
         for (int i = 0; i < chromosome.getSize(); i++) {
             if (chromosome.getGene(i) == Gene.ONE) {
                 amount += 1;
+            } else if (chromosome.getGene(i) == Gene.QUESTION) {
+                // treat question genes as random in eval stage 
+                if (Math.random() < 0.5) {
+                    amount += 1;
+                }
             }
         }
         return amount;

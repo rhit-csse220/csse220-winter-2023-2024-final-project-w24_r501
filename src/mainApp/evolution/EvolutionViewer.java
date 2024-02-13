@@ -101,13 +101,10 @@ public class EvolutionViewer {
                 //Run the next generation
                 if(sim.runGeneration()){
                     //Update the graph
-                    graph.addEntry(sim.getMaxFitness(), sim.getAverageFitness(), sim.getMinFitness(),
-                            sim.getHammingDistance(), sim.getPercentUnique());
+                    graph.addEntry(sim.getIncorrect(), sim.getCorrect(), sim.getUndecided());
 
                     //Update the chromosome live viewer
                     liveChromosomeComponent.setNewGeneration(sim.getCurrentGeneration());
-                    System.out.println("Max: "+sim.getMaxFitness()+ " Average: "+sim.getAverageFitness()+
-                            " Min: "+sim.getMinFitness()+" Hamming: "+sim.getHammingDistance());
                 } else {
                     simState = SimulationState.STOPPED;
                     chromosomeFrame.setVisible(false);
