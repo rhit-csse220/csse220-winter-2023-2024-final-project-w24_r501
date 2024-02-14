@@ -11,7 +11,7 @@ import mainApp.chromosome.Chromosome;
  */
 public class RouletteSelection implements SelectionMethod {
     @Override
-    public ArrayList<Chromosome> select(HashMap<Chromosome, Double> chromosomes) {
+    public ArrayList<Chromosome> select(HashMap<Chromosome, Double> chromosomes, int amount) {
         ArrayList<Chromosome> clist = new ArrayList<>();
         ArrayList<Double> weights = new ArrayList<>();
 
@@ -20,7 +20,7 @@ public class RouletteSelection implements SelectionMethod {
             weights.add(chromosomes.get(k));
         }
 
-        return WeightedRandomSelection.getSelection(clist, weights, chromosomes.size() / 2);
+        return WeightedRandomSelection.getSelection(clist, weights, amount);
     }
 
 }

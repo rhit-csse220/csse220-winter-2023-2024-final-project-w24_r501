@@ -13,7 +13,7 @@ public class RankSelection implements SelectionMethod {
     private static final double SELECTION_PRESSURE = 1.5;
 
     @Override
-    public ArrayList<Chromosome> select(HashMap<Chromosome, Double> chromosomes) {
+    public ArrayList<Chromosome> select(HashMap<Chromosome, Double> chromosomes, int amount) {
         ArrayList<Chromosome> sorted = SortChromosomeMap.sort(chromosomes);
         ArrayList<Double> weights = new ArrayList<>();
 
@@ -23,6 +23,6 @@ public class RankSelection implements SelectionMethod {
                     - (2 * SELECTION_PRESSURE * ((chromosomes.size() - i - 1) / (chromosomes.size() - 1)))));
         }
 
-        return WeightedRandomSelection.getSelection(sorted, weights, chromosomes.size() / 2);
+        return WeightedRandomSelection.getSelection(sorted, weights, amount);
     }
 }

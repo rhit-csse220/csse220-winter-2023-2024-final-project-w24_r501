@@ -6,5 +6,5 @@ import java.util.HashMap;
 import mainApp.chromosome.Chromosome;
 
 public interface SelectionMethod {
-    public ArrayList<Chromosome> select(HashMap<Chromosome, Double> chromosomes);
+    public ArrayList<Chromosome> select(HashMap<Chromosome, Double> chromosomes, int amount);
 }

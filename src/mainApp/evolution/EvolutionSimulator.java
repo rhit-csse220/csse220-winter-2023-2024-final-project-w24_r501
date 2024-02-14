@@ -72,6 +72,7 @@ public class EvolutionSimulator {
         if(generationCount >= maxGenerations || hasTerminated){
             return false;
         }
+        System.out.println(chromosomes.size());
 
 //        //Mutate all the chromosomes
 //        for (Chromosome chr : chromosomes) {
@@ -134,13 +135,12 @@ public class EvolutionSimulator {
 
         //Take out elites and store them temporarily
         for(int i = 1; i <= numberOfElites; i++){
-            elites.add(sortedByFitness.get(sortedByFitness.size() - i));
-            values.remove(sortedByFitness.get(sortedByFitness.size() - i));
+            elites.add(new Chromosome(sortedByFitness.get(sortedByFitness.size() - i)));
         }
 
         //From this point on, the non-elite chromosome survivor list has an EVEN size
 
-        ArrayList<Chromosome> survivors = selectionMethod.select(values);
+        ArrayList<Chromosome> survivors = selectionMethod.select(values, (populationSize/2) - numberOfElites/2);
 
         //Now, it should have HALF that size (exactly half because its even)
 
