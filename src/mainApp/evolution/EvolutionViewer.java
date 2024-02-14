@@ -110,7 +110,7 @@ public class EvolutionViewer {
                             " Min: "+sim.getMinFitness()+" Hamming: "+sim.getHammingDistance());
                 } else {
                     simState = SimulationState.STOPPED;
-                    chromosomeFrame.setVisible(false);
+//                    chromosomeFrame.setVisible(false);
                     startButton.setText("Start");
                 }
                 graph.repaint();
@@ -175,7 +175,7 @@ public class EvolutionViewer {
 
         chromosomeFrame.add(liveChromosomeComponent);
         chromosomeFrame.pack();
-
+        chromosomeFrame.setVisible(true);
         progressFrame.add(graph);
         progressFrame.add(buttons, BorderLayout.SOUTH);
         progressFrame.pack();
