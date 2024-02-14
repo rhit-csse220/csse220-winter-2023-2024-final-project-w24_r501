@@ -169,21 +169,12 @@ public class EvolutionSimulator {
 
             //Loop and crossover from the rear of the survivor list until all elites are used.
             //For elites, only the non-elite parent is replaced with the crossover child
-            for(int i = 0; i < elites.size() && i < survivors.size(); i++){
-//                System.out.println("elite size: "+numberOfElites+" survivor size: "+survivors.size());
-                //cross over one elite and one normal chromosome
-                Chromosome[] children = onePointCrossover(elites.get(i), survivors.get(survivors.size() - i - 1));
-                //Change the normal chromosome
-                survivors.set(survivors.size() - i - 1, children[0]);
-            }
 
             //Loop through the remainder of the survivor list, this time replacing both parents
-            for(int i = 0; i < survivors.size() - numberOfElites - 1; i++){
-                int firstParentLoc = survivors.size() - i - numberOfElites - 1;
-
-                Chromosome[] children = onePointCrossover(survivors.get(firstParentLoc), survivors.get(firstParentLoc - 1));
-                survivors.set(firstParentLoc, children[0]);
-                survivors.set(firstParentLoc - 1, children[1]);
+            for(int i = 0; i < survivors.size() -1; i++){
+                Chromosome[] children = onePointCrossover(survivors.get(i), survivors.get(i + 1));
+                survivors.set(i, children[0]);
+                survivors.set(i + 1, children[1]);
             }
 
 
