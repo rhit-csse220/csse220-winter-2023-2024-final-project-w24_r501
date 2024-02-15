@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import mainApp.chromosome.Chromosome;
 import mainApp.chromosome.Chromosome.Gene;
 
+/***
+ * Class: LinearAproxFitness
+ * Purpose: Generates a linear approximation to the list of points using the genetic algorithm
+ */
 public class LinearAproxFitness implements FitnessFunction {
 
     @Override

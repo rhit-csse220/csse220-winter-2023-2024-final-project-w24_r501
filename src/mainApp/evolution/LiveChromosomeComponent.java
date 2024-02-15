@@ -8,6 +8,10 @@ import java.awt.*;
 import java.util.ArrayList;
 
 
+/**
+ * Class: LiveChromosomeCompoent
+ * Provides a live view of the chromosomes in the simulation
+ */
 public class LiveChromosomeComponent extends JPanel {
 
     class SingleChromosome extends JComponent {
